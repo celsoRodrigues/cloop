@@ -1,4 +1,5 @@
 .
+├── bin
 ├── docx
 │   ├── hp.docx
 │   ├── Ita.docx
@@ -7,7 +8,8 @@
 ├── layout
 │   └── layout.html
 ├── main.go
-├── page.html
-└── tree.txt
+├── README.md
+├── tree.txt
+└── w.sh
 
-2 directories, 8 files
+3 directories, 9 files
