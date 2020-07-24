@@ -1,1 +1,1 @@
-GOOS=windows GOARCH=386 go build -o ./c.exe 
+GOOS=windows GOARCH=386 go build -o ./bin/c.exe 
