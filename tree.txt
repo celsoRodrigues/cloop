@@ -1,0 +1,13 @@
+.
+├── docx
+│   ├── hp.docx
+│   ├── Ita.docx
+│   ├── Week_27.docx
+│   └── Week_28.docx
+├── layout
+│   └── layout.html
+├── main.go
+├── page.html
+└── tree.txt
+
+2 directories, 8 files

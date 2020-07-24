@@ -1,0 +1,27 @@
+{{$maincamp :=index . 0 }}
+{{$secondcamp :=index . 1 }}
+<title>Individual</title>
+<ul>
+     
+       <li class="done">{{$maincamp.Title }}</li>
+       <li class="done">{{$maincamp.Bodie }}</li>
+       <li class="done">{{$maincamp.Cta }}</li>
+
+    
+</ul>
+
+{{range .}}
+<title>Loop</title>
+<ul>
+     
+    <li class="done">{{.Title }}</li>
+    <li class="done">{{.Bodie }}</li>
+    <li class="done">{{.Cta }}</li>
+
+ 
+</ul>
+{{end}}
+
+
+
+
