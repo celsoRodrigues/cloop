@@ -26,7 +26,7 @@ type campaigns struct {
 
 func main() {
 
-	r, err := docx.ReadDocxFile(filepath.Join("./docx", "hp.docx"))
+	r, err := docx.ReadDocxFile(filepath.Join("./docx", "hp2.docx"))
 	defer r.Close()
 
 	if err != nil {
