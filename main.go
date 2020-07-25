@@ -82,6 +82,7 @@ func main() {
 	}
 
 	fd, err := os.OpenFile(filepath.Join("./bin", "page.html"), os.O_CREATE|os.O_TRUNC|os.O_WRONLY, 0755)
+	defer fd.Close()
 
 	tmpl := template.Must(template.ParseFiles(filepath.Join("./layout", "layout.html")))
 	err = tmpl.Execute(fd, mycampaigns)
