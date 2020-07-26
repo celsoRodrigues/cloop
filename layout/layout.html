@@ -1,11 +1,19 @@
-{{$maincamp :=index . 0 }}
-{{$secondcamp :=index . 1 }}
+{{$maincamp :=index .Campaigns 0 }}
+{{$secondcamp :=index .Campaigns 1 }}
+
+{{$link1 :=index .Links 0 }}
+
+
+
 <title>Individual</title>
 {{$maincamp.Week}}
 {{$maincamp.Title|AddDash}}
 
+
 {{$secondcamp.Week }}
 {{$secondcamp.Title|AddDash }}
+
+{{$link1}}
 <ul>
      
        <li class="done">{{$maincamp.Title }}</li>
@@ -15,7 +23,7 @@
     
 </ul>
 
-{{range .}}
+{{range .Campaigns}}
 <title>Loop</title>
 <ul>
      
@@ -25,6 +33,10 @@
 
  
 </ul>
+{{end}}
+
+{{range .Links}}
+<li class="done">{{.}}</li>
 {{end}}
 
 

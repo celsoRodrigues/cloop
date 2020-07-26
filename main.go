@@ -21,6 +21,11 @@ type campaign struct {
 	Cta   string
 }
 
+type marketing struct {
+	Campaigns []campaign
+	Links     []string
+}
+
 //AddDash to be exported
 func AddDash(s string) (sss string) {
 	scanner := bufio.NewScanner(strings.NewReader(strings.Trim(s, " ")))
@@ -56,6 +61,7 @@ func main() {
 	scanner := bufio.NewScanner(strings.NewReader(string(str)))
 
 	var week string
+	var links []string
 	var titleLines []string
 	var bodyLines []string
 	var ctaLines []string
@@ -63,8 +69,14 @@ func main() {
 	for scanner.Scan() {
 
 		if strings.Contains(scanner.Text(), "Week:") {
+			index := strings.Index(scanner.Text(), ":")
+			week = strings.Trim(scanner.Text()[index+1:], " ")
+		}
 
-			week = strings.Trim(scanner.Text()[6:], " ")
+		if strings.Contains(scanner.Text(), "Link:") {
+			index := strings.Index(scanner.Text(), ":")
+			link := strings.Trim(scanner.Text()[index+1:], " ")
+			links = append(links, link)
 		}
 
 		if strings.Contains(scanner.Text(), "Title copy") {
@@ -100,11 +112,16 @@ func main() {
 
 	}
 
+	mkt := marketing{
+		Campaigns: mycampaigns,
+		Links:     links,
+	}
+
 	fd, err := os.OpenFile(filepath.Join("./bin", "page.html"), os.O_CREATE|os.O_TRUNC|os.O_WRONLY, 0755)
 	defer fd.Close()
 
 	tmpl := template.Must(template.New("layout.html").Funcs(fn).ParseFiles(filepath.Join("./layout", "layout.html")))
-	err = tmpl.Execute(fd, mycampaigns)
+	err = tmpl.Execute(fd, mkt)
 	if err != nil {
 		log.Fatal(err)
 	}
