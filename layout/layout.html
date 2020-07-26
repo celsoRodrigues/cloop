@@ -1,16 +1,17 @@
 {{$maincamp :=index .Campaigns 0 }}
 {{$secondcamp :=index .Campaigns 1 }}
+{{$week :=.Week }}
 
 {{$link1 :=index .Links 0 }}
 
 
 
 <title>Individual</title>
-{{$maincamp.Week}}
+{{$week}}
+Week{{$week}}_
 {{$maincamp.Title|AddDash}}
 
 
-{{$secondcamp.Week }}
 {{$secondcamp.Title|AddDash }}
 
 {{$link1}}

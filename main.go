@@ -15,13 +15,13 @@ import (
 
 //Campaign to be exported
 type campaign struct {
-	Week  string
 	Title string
 	Body  string
 	Cta   string
 }
 
 type marketing struct {
+	Week      string
 	Campaigns []campaign
 	Links     []string
 }
@@ -101,7 +101,7 @@ func main() {
 	}
 
 	var mycampaigns []campaign
-	mycapaign.Week = week
+
 	for i := 0; i < len(titleLines); i++ {
 
 		mycapaign.Title = titleLines[i]
@@ -113,6 +113,7 @@ func main() {
 	}
 
 	mkt := marketing{
+		Week:      week,
 		Campaigns: mycampaigns,
 		Links:     links,
 	}
