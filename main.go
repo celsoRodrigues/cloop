@@ -37,8 +37,21 @@ func AddDash(s string) (sss string) {
 	return ss[0 : len(ss)-1]
 }
 
+//Xplode to be exported
+func Xplode(s string) (sss []string) {
+	scanner := bufio.NewScanner(strings.NewReader(strings.Trim(s, " ")))
+	scanner.Split(bufio.ScanWords)
+	var ss []string
+
+	for scanner.Scan() {
+		ss = append(ss, scanner.Text())
+	}
+	return ss
+}
+
 var fn = template.FuncMap{
 	"AddDash": AddDash,
+	"Xplode":  Xplode,
 }
 
 func main() {
