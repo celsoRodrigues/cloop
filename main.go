@@ -15,13 +15,25 @@ import (
 
 //Campaign to be exported
 type campaign struct {
+	Week  string
 	Title string
-	Bodie string
+	Body  string
 	Cta   string
 }
 
-type campaigns struct {
-	Mkt []campaign
+//AddDash to be exported
+func AddDash(s string) (sss string) {
+	scanner := bufio.NewScanner(strings.NewReader(strings.Trim(s, " ")))
+	scanner.Split(bufio.ScanWords)
+	var ss string
+	for scanner.Scan() {
+		ss += scanner.Text() + "-"
+	}
+	return ss[0 : len(ss)-1]
+}
+
+var fn = template.FuncMap{
+	"AddDash": AddDash,
 }
 
 func main() {
@@ -43,11 +55,17 @@ func main() {
 	fmt.Print(string(str))
 	scanner := bufio.NewScanner(strings.NewReader(string(str)))
 
+	var week string
 	var titleLines []string
 	var bodyLines []string
 	var ctaLines []string
 
 	for scanner.Scan() {
+
+		if strings.Contains(scanner.Text(), "Week:") {
+
+			week = strings.Trim(scanner.Text()[6:], " ")
+		}
 
 		if strings.Contains(scanner.Text(), "Title copy") {
 			scanner.Scan()
@@ -71,10 +89,11 @@ func main() {
 	}
 
 	var mycampaigns []campaign
+	mycapaign.Week = week
 	for i := 0; i < len(titleLines); i++ {
 
 		mycapaign.Title = titleLines[i]
-		mycapaign.Bodie = bodyLines[i]
+		mycapaign.Body = bodyLines[i]
 		mycapaign.Cta = ctaLines[i]
 
 		mycampaigns = append(mycampaigns, mycapaign)
@@ -84,7 +103,7 @@ func main() {
 	fd, err := os.OpenFile(filepath.Join("./bin", "page.html"), os.O_CREATE|os.O_TRUNC|os.O_WRONLY, 0755)
 	defer fd.Close()
 
-	tmpl := template.Must(template.ParseFiles(filepath.Join("./layout", "layout.html")))
+	tmpl := template.Must(template.New("layout.html").Funcs(fn).ParseFiles(filepath.Join("./layout", "layout.html")))
 	err = tmpl.Execute(fd, mycampaigns)
 	if err != nil {
 		log.Fatal(err)

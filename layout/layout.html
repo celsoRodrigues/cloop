@@ -1,10 +1,15 @@
 {{$maincamp :=index . 0 }}
 {{$secondcamp :=index . 1 }}
 <title>Individual</title>
+{{$maincamp.Week}}
+{{$maincamp.Title|AddDash}}
+
+{{$secondcamp.Week }}
+{{$secondcamp.Title|AddDash }}
 <ul>
      
        <li class="done">{{$maincamp.Title }}</li>
-       <li class="done">{{$maincamp.Bodie }}</li>
+       <li class="done">{{$maincamp.Body }}</li>
        <li class="done">{{$maincamp.Cta }}</li>
 
     
@@ -15,7 +20,7 @@
 <ul>
      
     <li class="done">{{.Title }}</li>
-    <li class="done">{{.Bodie }}</li>
+    <li class="done">{{.Body }}</li>
     <li class="done">{{.Cta }}</li>
 
  
