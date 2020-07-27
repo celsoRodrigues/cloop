@@ -20,10 +20,15 @@ type campaign struct {
 	Cta   string
 }
 
+type linkStruct struct {
+	URL  string
+	Copy string
+}
+
 type marketing struct {
 	Week      string
 	Campaigns []campaign
-	Links     []string
+	Links     []linkStruct
 }
 
 //AddDash to be exported
@@ -35,6 +40,22 @@ func AddDash(s string) (sss string) {
 		ss += scanner.Text() + "-"
 	}
 	return ss[0 : len(ss)-1]
+}
+
+//RemoveSpecial to be exported
+func RemoveSpecial(s string) (sss string) {
+
+	scanner := bufio.NewScanner(strings.NewReader(strings.Trim(s, " ")))
+	scanner.Split(bufio.ScanRunes)
+	var ss string
+	for scanner.Scan() {
+		if scanner.Text() != "!" || scanner.Text() != "?" || scanner.Text() != "'" || scanner.Text() != "." || scanner.Text() != ";" || scanner.Text() != "," || scanner.Text() != "£" {
+			ss += scanner.Text()
+		}
+
+	}
+
+	return ss
 }
 
 //Xplode to be exported
@@ -49,9 +70,27 @@ func Xplode(s string) (sss []string) {
 	return ss
 }
 
+//XplodeLast to be exported
+func XplodeLast(s string) (sss []string) {
+	scanner := bufio.NewScanner(strings.NewReader(strings.Trim(s, " ")))
+	scanner.Split(bufio.ScanWords)
+	var ss []string
+
+	for scanner.Scan() {
+		ss = append(ss, scanner.Text())
+	}
+	s1 := strings.Join(ss[:len(ss)-1], " ")
+	s2 := strings.Join(ss[len(ss)-1:], " ")
+
+	s3 := []string{s1, s2}
+	return s3
+}
+
 var fn = template.FuncMap{
-	"AddDash": AddDash,
-	"Xplode":  Xplode,
+	"AddDash":       AddDash,
+	"Xplode":        Xplode,
+	"XplodeLast":    XplodeLast,
+	"RemoveSpecial": RemoveSpecial,
 }
 
 func main() {
@@ -64,6 +103,7 @@ func main() {
 	}
 
 	mycapaign := campaign{}
+	link := linkStruct{}
 
 	var cr = regexp.MustCompile(`</w:p>`)
 	var re = regexp.MustCompile(`[<][^>]*[>]`)
@@ -75,6 +115,7 @@ func main() {
 
 	var week string
 	var links []string
+	var linksCopyLines []string
 	var titleLines []string
 	var bodyLines []string
 	var ctaLines []string
@@ -86,10 +127,15 @@ func main() {
 			week = strings.Trim(scanner.Text()[index+1:], " ")
 		}
 
-		if strings.Contains(scanner.Text(), "Link:") {
+		if strings.Contains(scanner.Text(), "Top Link:") {
 			index := strings.Index(scanner.Text(), ":")
-			link := strings.Trim(scanner.Text()[index+1:], " ")
+			link := strings.Trim(scanner.Text()[index+31:], " ")
 			links = append(links, link)
+		}
+
+		if strings.Contains(scanner.Text(), "Top Copy") {
+			scanner.Scan()
+			linksCopyLines = append(linksCopyLines, scanner.Text())
 		}
 
 		if strings.Contains(scanner.Text(), "Title copy") {
@@ -103,18 +149,30 @@ func main() {
 		}
 
 		if strings.Contains(scanner.Text(), "CTA copy") {
-			scanner.Scan()
-			ctaLines = append(ctaLines, scanner.Text())
+			var s string
+			for {
+				scanner.Scan()
+				if len(scanner.Text()) == 0 {
+					break
+				}
+				s += scanner.Text() + ", "
+			}
+			ctaLines = append(ctaLines, strings.Trim(s, ", "))
 		}
-
 	}
 
 	if len(titleLines) != len(bodyLines) || len(ctaLines) != len(titleLines) || len(bodyLines) != len(ctaLines) {
-		fmt.Println("There is a field missing in the page\n You have:\n titles:", len(titleLines), "Bodies:", len(bodyLines), "Cta's:", len(ctaLines))
+		fmt.Println("There is a field(s) missing in the page\n You have:\n titles:", len(titleLines), "Bodies:", len(bodyLines), "Cta's:", len(ctaLines))
+		os.Exit(1)
+	}
+
+	if len(links) != len(linksCopyLines) {
+		fmt.Println("There is a field(s) missing in the page\n You have:\n links:", len(links), "\n linkCopy:", len(linksCopyLines))
+		os.Exit(1)
 	}
 
 	var mycampaigns []campaign
-
+	var myLinks []linkStruct
 	for i := 0; i < len(titleLines); i++ {
 
 		mycapaign.Title = titleLines[i]
@@ -125,10 +183,19 @@ func main() {
 
 	}
 
+	for i := 0; i < len(links); i++ {
+
+		link.URL = links[i]
+		link.Copy = linksCopyLines[i]
+
+		myLinks = append(myLinks, link)
+
+	}
+
 	mkt := marketing{
 		Week:      week,
 		Campaigns: mycampaigns,
-		Links:     links,
+		Links:     myLinks,
 	}
 
 	fd, err := os.OpenFile(filepath.Join("./bin", "page.html"), os.O_CREATE|os.O_TRUNC|os.O_WRONLY, 0755)

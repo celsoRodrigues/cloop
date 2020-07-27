@@ -1,49 +1,2206 @@
-{{$maincamp :=index .Campaigns 0 }}
-{{$secondcamp :=index .Campaigns 1 }}
-{{$week :=.Week }}
-
-{{$link1 :=index .Links 0 }}
+<!-- homepage1 SF FALLBACK with auto mealkit code -->
 
 
+<!--<link rel="stylesheet" href="/content/homepage2017/css/homepage1.css" media="screen" charset="utf-8">-->
+<style>
+	/* site rules - don't touch */
+	/* css for promoStrip*/
+	.promoStrip {
+    background-color: #c53b44;
+    padding: 8px;
+    font-size: 15px;
+    color: white;
+}
+	.main-container {
+		padding-bottom: 0px;
+		min-width: 265px;
+	}
+	.content-wrapper {
+		font-size: 155%;
+		width: 100%;
+		background-color: #eee6d2;
+		margin: auto;
+		padding-bottom: 60px;
+		min-width: 265px;
+	}
+		.content-wrapper .clear {
+			clear: both;
+		}
+		.content-wrapper .mobile_only {
+			display: none;
+		}
+		.content-wrapper .desktop_only {
+			display: initial;
+		}
+		.content-wrapper .mobile_none {
+			display: initial;
+		}
+		.content-wrapper .title_default {
+			font-family: ACFont;
+			font-size: 22px;
+			line-height:22px;
+		}
+		.content-wrapper .content_default {
+			font-family: ACMontserratLightFont;
+			font-size: 16px;
+			line-height: 20px;
+		}
+		.content-wrapper .middle_content {
+			max-width: 1200px;
+			margin: auto;
+		}
+		.content-wrapper * {
+			box-sizing: border-box;
+		}
+		.content-wrapper a {
+			text-decoration: none;
+			color: inherit;
+			line-height: inherit;
+		}
+			.content-wrapper a:hover {
+				text-decoration: none;
+				color: inherit;
+				line-height: inherit;
+			}
+	.content-wrapper .top-5-modules {
+		width: 100%;
+		margin: auto;
+		overflow: hidden;
+	}
+	.top-5-modules .box {
+		width: 46%;
+		margin-left: 1.5%;
+		margin-right: 2%;
+		float: left;
+		position: relative;
+	}
+	/* end of site containers */
+	
+	/* start of primary */
+	.primary {
+		position: relative;
+		min-height: 400px;
+		width: 100%;
+		background: url(/content/homepage2017/images/wk26/main.jpg) no-repeat;
+		background-size: cover;
+		background-position: center center;
+		padding: 110px 0 0;
+	}
+	
+	 @media screen and (min-width: 320px) and (max-width:640px) { 
+	.primary { 
+		 background: url(/content/homepage2017/images/wk26/main_mob.jpg) no-repeat; 
+		} 
+	 } 
+		/* ORIGINAL SO CHANGE BACK AFTER WEEK 30
+			.primary .title_box {
+		position: relative;
+		max-width: 420px;
+		width: 80%;
+		padding: 25px 24px 25px;
+		margin: 0 auto;
+		background: url(/content/homepage2017/images/ui-elements/textured-box_white-90.png) no-repeat;
+		background-size: 100% 100%;
+		background-position: center center;
+	}*/
+	
+.primary .title_box {
+	position: relative;
+	max-width: 435px;
+	width: 80%;
+	padding: 25px 20px 25px;
+	margin: 0 auto;
+	background: url(/content/homepage2017/images/ui-elements/textured-box_white-90.png) no-repeat;
+	background-size: 100% 100%;
+	background-position: center center;
+}
+	
+		
+	/* this is new code to test out */
+		/* .primary .title_box {
+		position: relative;
+		max-width: 480px;
+		 width: 80%; 
+		padding: 25px 15px 25px;
+		margin: 0 auto;
+		background: url(/content/homepage2017/images/ui-elements/textured-box_white-90.png) no-repeat;
+		background-size: 100% 100%;
+		background-position: center center;
+		display: inline-block;
+	}
+	*/
+			.primary .title_box .title h1 {
+				font-family: ACFont;
+				letter-spacing:0.5px;
+				font-size: 28px;
+				line-height: 30px;
+				max-width: 460px;
+				text-align: center;
+				margin:0 auto 11px;
+			}
+			
+			@media only screen and (max-width: 620px) {
+/*
+			.primary .title_box .title h1 {
+				font-size:23px;
+			}
+*/
+		}
+			
+			
+	/*
+					.primary .title_box .title h1::before {
+					content: url(/content/homepage2017/images/stickers/5pointed-2stars.png);
+					margin-right: 8px;
+				}
+		
+		.primary .title_box .title h1::after {
+					content: url(/content/homepage2017/images/stickers/5pointed-2stars-reverse.png);
+					margin-left: 8px;
+				}
+	*/
+		
+			.primary .title_box .content.content_default {
+	max-width: 455px;
+	margin: auto;
+}
+		
+		
+				.primary .title_box .content.content_default span {
+					font-family: ACMontserratLightFont;
+				}
+							.primary .title_box .button {
+	padding: 7px 5px;
+	font-family: ACMontserratRegularFont;
+	max-width: 197px;
+	margin: 10px auto auto;
+}
+		
+	.primary .title_box .promo_sticker {
+	position: absolute;
+	top: -50px;
+	right: -76px;
+	width: 130px;
+	height: 160px;
+	background-size: 80% !important;
+	background-position: center center;
+	z-index: 1;
+	padding: 18px 5px 0 5px;
+	color: rgb(255, 255, 255);
+	text-align: center;
+	font-family: ACFont;
+	font-size: 13px;
+	letter-spacing: 1px;
+	padding-top: 22px;
+	padding-left: 9px;
+	transform: rotate(9deg);
+	-ms-transform: rotate(9deg);
+	-webkit-transform: rotate(6deg);
+}
+		/*
+		.primary .title_box .promo_sticker {
+		position: absolute;
+		top: 15px;
+		right: 7px;
+		width: 135px;
+		height: 100px;
+		background-size: 90% !important;
+		background-position: center center;
+		z-index: 1;
+		padding: 18px 5px 0 5px;
+		color: white;
+		text-align: center;
+		font-family: ACFont;
+		font-size: 13px;
+		letter-spacing: 1px;
+		padding-top: 22px;
+		padding-left: 9px;
+		transform: rotate(0deg);
+		-ms-transform: rotate(0deg);
+		-webkit-transform: rotate(0deg);
+	}*/
+		.primary .title_box .promo_sticker {
+	top: -59px;
+	width: 130px;
+	right: -79px;
+	height: 219px;
+	position: absolute;
+}
+		.mealKits {
+			width: 30.33%;
+			min-height: 370px;
+			float: left;
+			margin-left: 1.5%;
+			position: relative;
+	}
+		
+		.recipePatch.mealImage {
+		width: 100%;
+		height: 250px;
+		background-size: cover;
+		/* position: relative; */
+	}
+	/*
+	.mealImage {
+		background: url(/content/homepage2017/images/wk35/videothumb.jpg) no-repeat center center;
+		width: 100%;
+		height: 250px;
+		background-size: cover;
+		position: relative; 
+	}
+	*/
+	.mealDetails {
+		background-color: #fff;
+		width: 100%;
+		padding: 15px;
+		position:relative;
+	}
+	
+	.box_title {
+		font-family: ACMontserratRegularFont;
+		font-size: 20px;
+		text-align: left;
+		color: #8072a7;
+		line-height: 25px;
+		padding-bottom: 10px;
+		min-height: 60px;
+		display: -webkit-flex;
+		display: flex;
+		justify-content: center;
+		align-content: center;
+		flex-direction: column;
+	}
+	.mealTime {
+		text-align: left;
+	}
+		
+	
+	.mealTime object, .mealTimeInfo {
+		display: inline;
+		width: 20px;
+		height: 20px;
+		position: relative;
+		top: 5px;
+	}
+		img.mealTimeInfo {
+		display: inline-block;
+	}
+	
+		
+	/*
+		.mealTimeInfo{
+		display: inline;
+		width: 20px;
+		height: 20px;
+		position: relative;
+		top: 5px;
+	}
+	*/
+	
+	.triangle .trg {
+		width: 0;
+		height: 0;
+		border-left: 20px solid transparent;
+		border-right: 20px solid transparent;
+		border-bottom: 20px solid #fff;
+		margin: auto;
+	}
+	
+	/*
+	.triangle {
+		position: absolute;
+		bottom: 117px;
+		width: 100%;
+	}
+	*/
+		
+	.triangle {
+		position: absolute;
+		top: -20px;
+		width: 100%;
+		margin-left: -15px;
+	}
+	
+	.content.content_default span {
+		font-weight: bold;
+	}
 
-<title>Individual</title>
-{{$week}}
-Week{{$week}}_
-{{$maincamp.Title|AddDash}}
+	@media only screen and (max-width: 815px) {
+		
+	/*
+		.mealKits {
+			width: 50%;
+			min-height: 370px;
+			float: left;
+			margin: 0 auto;
+			position: relative;
+			padding: 0 15px 20px;
+		}
+	*/
+		
+		.mealKits {
+		width: 33.3%;
+		min-height: 370px;
+		float: left;
+		margin: 0 auto;
+		position: relative;
+		padding: 0 10px 20px;
+		}
+		.box_title {
+			text-align: center;
+			min-height: 30px;
+		}
+	
+		.recipePatch.mealImage {
+			height: 300px;
+		}
+	
+		
+		.mealTime {
+		text-align: center;
+		}
+			
+		
+		
+	}
+		
+		
+		
+		
+	@media only screen and (max-width: 640px) {
+		.primary .title_box {
+			margin:0 auto;
+		 }
+			.primary .title_box .promo_sticker {
+	top: -57px;
+	width: 130;
+	right: -81px;
+	height: 141px;
+	position: absolute;
+	transform: rotate(-9deg);
+	-ms-transform: rotate(-9deg);
+	-webkit-transform: rotate(6deg);
+}
+				.primary .title_box .button {
+				max-width: 241px;
+			}
+		
+		.mealKits {
+		width: 100%;
+		/* min-height: 370px; */
+		/* float: none; */
+		margin: 0 auto;
+		position: relative;
+		padding: 0 15px 20px;
+	}
+		.triangle {
+		position: absolute;
+		top: -20px;
+		width: 100%;
+	}
+		
+	}
+	@media only screen and (max-width: 480px) {
+		.primary {
+		min-height: inherit;
+		margin-bottom: -3px;
+		background: url(/content/homepage2017/images/wk26/main_mob.jpg) no-repeat;
+		background-size: cover;
+		background-position: center right;
+		padding: 50px 0 50px;
+	}
+		.primary .title_box {
+			width:79%;
+		}
+			.primary .title_box .promo_sticker {
+	top: -44px;
+	width: 100px;
+	right: -49px;
+	height: 141px;
+	position: absolute;
+	transform: rotate(-9deg);
+	-ms-transform: rotate(-9deg);
+	-webkit-transform: rotate(6deg);
+}
+			.primary .title_box .button {
+				max-width:240px;
+			}
+		
+		
+	}
+		
+		@media only screen and (max-width: 290px) {	
+		.primary {
 
 
-{{$secondcamp.Title|AddDash }}
-
-{{$link1}}
-
-{{$ctaWords:=$maincamp.Cta|Xplode}}
-{{index $ctaWords 0}}
-{{index $ctaWords 1}}
-<ul>
-     
-       <li class="done">{{$maincamp.Title }}</li>
-       <li class="done">{{$maincamp.Body }}</li>
-       <li class="done">{{$maincamp.Cta }}</li>
-
-    
-</ul>
-
-{{range .Campaigns}}
-<title>Loop</title>
-<ul>
-     
-    <li class="done">{{.Title }}</li>
-    <li class="done">{{.Body }}</li>
-    <li class="done">{{.Cta }}</li>
-
- 
-</ul>
-{{end}}
-
-{{range .Links}}
-<li class="done">{{.}}</li>
-{{end}}
 
 
+		padding: 80px 0 30px;
+	}
+		}
+	/* end of primary section */	
+	
+/* start of top stuff */
+	.content-wrapper .top_stuff {
+		padding: 10px 20px 20px;
+		overflow: hidden;
+
+	}
+	.top_stuff .title {
+		color: #735745;
+		line-height: 75px;
+		letter-spacing:0.5px;
+		float: left;
+	}
+		.top_stuff .title img {
+			position: relative;
+			width: 45px;
+			height:13px;
+			margin-left: 5px;
+		}
+	.top_stuff .boxes_section {
+		float: right;
+		width: calc(100% - 300px);
+	}
+		.top_stuff .boxes_section .box {
+			float: left;
+			width: 23%;
+			margin: 1%;
+			padding: 5px;
+			text-align: center;
+			color: #735745;
+			background-repeat: no-repeat;
+			background-size: 100% 100%;
+			background-position: center center;
+			display: -webkit-box;
+			display: -moz-box;
+			display: -ms-flexbox;
+			display: -webkit-flex;
+			-webkit-justify-content: space-around;
+			display: flex;
+			justify-content: space-around;
+			justify-content: center;
+			align-content: center;
+			flex-direction: column;
+			height: 60px;
+			font-size: 16px;
+			font-family: ACMontserratRegularFont;
+			line-height: 18px;
+	
+			display: -webkit-inline-box;
+			-webkit-box-pack: center;
+			-webkit-box-align: center;
+		}
+	  .top_stuff .boxes_section .box1 {
+			background-image: url(/content/homepage2017/images/ui-elements/top-links_button1.png);
+			padding:0 8px;
+			width: 19%;
+		}
+		.top_stuff .boxes_section .box2 {
+		background-image: url(/content/homepage2017/images/ui-elements/top-links_button2.png);
+		padding: 0 8px;
+		width: 18%;
+		}
+		.top_stuff .boxes_section .box3 {
+			background-image: url(/content/homepage2017/images/ui-elements/top-links_button3.png);
+			padding:0 8px;
+			width: 25%;
+		}
+		.top_stuff .boxes_section .box4 {
+			background-image: url(/content/homepage2017/images/ui-elements/top-links_button4.png);
+			padding:0 8px;
+			width: 24%;
+		}
+	@media only screen and (max-width: 1024px) {
+		.content-wrapper .top {
+			padding-top: 10px;
+		}
+		.top_stuff .title {
+			width: 100%;
+			line-height: 34px;
+		}
+		.top_stuff .boxes_section {
+			width: 100%;
+		}
+	}
+	@media only screen and (max-width: 640px) {
+		.content-wrapper .top_stuff {
+			padding-top: 10px;
+		}
+		.top_stuff .title {
+			line-height: 40px;
+		}
+		.top_stuff .boxes_section .box {
+			width: 48%;
+		}
+	}
+	@media only screen and (max-width: 480px) {
+		.content-wrapper .top_stuff {
+			padding-left: 10px;
+			padding-right: 10px;
+		}
+		.top_stuff .boxes_section .box {
+			padding: 10px;
+		}
+	}
+	/* end of top stuff */
+	
+/* start of featured */
+	.top-5-modules .featured {
+		margin: 1%;
+		position: relative;
+		width: 26%;
+		float: left;
+		margin-bottom:0;
+		position: relative;
+	
+		/* IF featured ribbon banner: */
+		margin-top:37px;
+	
+		/* IF featured title: */
+		/*margin-top:-4px;*/
+	}
+	.featured .image_section {
+		background: url(/content/homepage2017/images/wk26/featured.jpg) no-repeat;
+		background-size: cover;
+		margin-bottom:-2px;
+		background-position: center;
+		padding-top: 41px;
+	
+		/* IF featured ribbon banner */
+		height:338px;
+	
+		/*IF featured title N.B. Check at break point 1025px */
+		/*height:358px;*/
+	}
+	.featured .image_section .featured-flag {
+	position: absolute;
+	width: 100%;
+	top: -36px;
+	font-family: ApplesAndCarrots, sans-serif;
+	letter-spacing: 1px;
+	font-size: 22px;
+	background: url(/content/homepage2017/images/ui-elements/banner_ribbon-folded_green.svg) no-repeat center center;
+	color: #fff;
+	height: 65px;
+	padding-top: 12px;
+	margin-top:-5px;
+		z-index: 1;
+}
+			.featured .image_section .offer img {
+				width: 90%;
+				height: auto;
+				max-width: 250px;
+			}
+	
+
+		
+/* normal
+		.featured .image_section .promo_sticker {
+	position: absolute;
+	background-size: 100%;
+	background-position: center center;
+	top: 37px;
+	right: 7px;
+	width: 95px;
+	height: 96px;
+	color: #fff;
+	font-family: ApplesAndCarrots, sans-serif;
+	letter-spacing: 0.5px;
+	text-align: center;
+	font-size: 24px;
+	line-height: 20px;
+	padding-top: 17px;
+	padding-left: 1px;
+	transform: rotate(6deg);
+	-ms-transform: rotate(6deg);
+	-webkit-transform: rotate(6deg);
+}
+*/
+		.featured .image_section .promo_sticker {
+	position: absolute;
+	background-size: 100%;
+	background-position: center center;
+	top: 37px;
+	right: 7px;
+	width: 95px;
+	height: 96px;
+	color: #fff;
+	font-family: ApplesAndCarrots, sans-serif;
+	letter-spacing: 0.5px;
+	text-align: center;
+	font-size: 24px;
+	line-height: 20px;
+	padding-top: 17px;
+	padding-left: 1px;
+	transform: rotate(0deg);
+	-ms-transform: rotate(0deg);
+	-webkit-transform: rotate(0deg);
+}
+			.featured .image_section .promo_sticker span {
+				font-size:20px;
+			}
+		.featured .image_section .title {
+			margin: 0 auto;
+			position: relative;
+			text-align: center;
+			font-family: ApplesAndCarrots, sans-serif;
+
+			letter-spacing:1px;
+			font-size: 30px;
+			line-height: 30px;
+			z-index: 1;
+			padding:0 15px;
+			max-width:300px;
+		}
+	.featured .content {
+		width: 100%;
+		margin: auto;
+		background: url(/content/homepage2017/images/ui-elements/bordered-box_green.png) no-repeat center center;
+		background-size: 100% 100%;
+		font-size: 16px;
+		font-family: ACMontserratLightFont;
+		padding: 15px 10px 20px;
+	}
+		.featured .content .text {
+    max-width: 296px;
+    margin: auto;
+}
+			.featured .content .text span {
+				font-family: ACMontserratRegularFont;
+				text-decoration: underline;
+			}
+		.featured .content img {
+			position: relative;
+			left: 3px;
+		}
+	@media only screen and (max-width: 1024px) {
+		.top-5-modules .featured {
+			width: 36%;
+		}
+		.featured .offer img {
+			max-width: 230px;
+		}
+	}
+	@media only screen and (max-width: 640px) {
+		.top-5-modules .featured {
+			width: 100%;
+			margin-left: 0px;
+			margin-right: 0px;
+			padding-left:5px;
+			padding-right:5px;
+		}
+		.featured .content {
+			height:auto;
+		}
+			.featured .content .text {
+				max-width:inherit;
+				margin:auto;
+			}
+		.featured .offer img {
+			max-width: 260px;
+		}
+		.featured .image_section {
+		width: 99%;
+		margin: 0 auto;
+		height: 250px;
+		background-size: cover !important;
+		background: url(/content/homepage2017/images/wk26/featured_mob.jpg) no-repeat;
+		background-position: center , center;
+		/* padding-top: 102px; */
+		padding-top: 20px;
+	}
+			.featured .image_section .title {
+				max-width:inherit;
+				margin:auto;
+			}
+	}
+	@media only screen and (max-width: 490px) {
+		.featured .content {
+			height:auto;
+		}
+			.featured .content .text {
+				/*max-width:250px;*/
+				margin:auto;
+			}
+.featured .image_section .promo_sticker {
+	position: absolute;
+	background-size: 100%;
+	background-position: center center;
+	top: 42px;
+	right: 10px;
+	width: 80px;
+	height: 90px;
+	color: rgb(255, 255, 255);
+	font-family: ApplesAndCarrots, sans-serif;
+	letter-spacing: 0.5px;
+	text-align: center;
+	font-size: 24px;
+	line-height: 20px;
+	padding-top: 17px;
+	padding-left: 1px;
+	transform: rotate(0deg);
+	-ms-transform: rotate(0deg);
+	-webkit-transform: rotate(0deg);
+}
+			.featured .image_section .promo_sticker span {
+				font-size:20px;
+			}
+	}
+	/* end of featured */
+	
+/* start of secondary */
+	.top-5-modules .secondary {
+		min-height: 455px;
+		width: 40%;
+		margin: 2%;
+		float: left;
+		margin-top: 0px;
+	}
+		.top-5-modules .secondary .image_section {
+			position: relative;
+			height: 360px;
+			background-image: url(/content/homepage2017/images/ui-elements/textured-border.png), url(/content/homepage2017/images/wk26/secondary.jpg);
+			background-repeat: no-repeat;
+			background-size: 100% 100%, cover;
+			background-position: center center; 
+			padding-top: 110px;
+			width: 100%;
+		}
+	/*
+		.top-5-modules .secondary .image_section .promo_sticker {
+		position: absolute;
+		top: -5px;
+		right: 20px;
+		height: 127px;
+		width: 99px;
+		background-size: 100% !important;
+		background-position: center center !important;
+		color: #fff;
+		font-family: ACFont;
+		letter-spacing: 1px;
+		text-align: center;
+		font-size: 17px;
+		line-height: 17px;
+		padding-top: 29px;
+		padding-left: 1px;
+		transform: rotate(10deg);
+		-ms-transform: rotate(10deg);
+		-webkit-transform: rotate(10deg);
+	}
+	*/
+	.top-5-modules .secondary .image_section .promo_sticker {
+	position: absolute;
+	top: -4px;
+	right: 15px;
+	height: 127px;
+	width: 100px;
+	background-size: 100% !important;
+	background-position: center center !important;
+	color: rgb(255, 255, 255);
+	font-family: ACFont;
+	letter-spacing: 1px;
+	text-align: center;
+	font-size: 17px;
+	line-height: 17px;
+	padding-top: 29px;
+	padding-left: 1px;
+	transform: rotate(8deg);
+	-ms-transform: rotate(8deg);
+	-webkit-transform: rotate(8deg);
+}
+		
+			.top-5-modules .secondary .image_section .promo_sticker span {
+				font-size:15px;
+			}
+	
+		.promo_flag {
+	position: absolute;
+	top: -3px;
+	right: 19px;
+	height: 127px;
+	width: 83px;
+	background-size: 100% !important;
+	background-position: center center !important;
+	color: rgb(255, 255, 255);
+	font-family: ACFont;
+	letter-spacing: 1px;
+	text-align: center;
+	font-size: 17px;
+	line-height: 17px;
+	padding-top: 29px;
+	padding-left: 1px;
+	transform: rotate(0deg);
+	-ms-transform: rotate(0deg);
+	-webkit-transform: rotate(0deg);
+	z-index: 0;
+}
+		
+			.top-5-modules .secondary .image_section .promo_flag span {
+				font-size:15px;
+			}
+	.top-5-modules .secondary .image_section .content {
+
+		position: absolute;
+		bottom: -88px;
+		width: 92%;
+		margin: 0 4%;
+		background: url(/content/homepage2017/images/ui-elements/bean_white-large.png) no-repeat center center;
+		background-size: 100% 100%;
+		padding: 15px 15px 25px;
+	}
+		.top-5-modules .secondary .image_section .content .title {
+			margin-bottom:11px;
+			letter-spacing:1px;
+		}
+		.top-5-modules .secondary .image_section .content .text.content_default {
+			max-width:367px;
+			margin:auto;
+		}
+	
+		.top-5-modules .secondary .image_section .content .button {
+	text-align: center;
+	fchher line-height: 25px;
+	margin: 10px auto 0;
+	font-family: ACMontserratRegularFont;
+	font-size: 16px;
+	padding: 5px;
+	max-width: 170px;
+}
+	/* 
+		.top-5-modules .secondary .image_section .content .button {
+		text-align: center;
+		line-height: 25px;
+		margin: 10px auto 0;
+		font-family: ACMontserratRegularFont;
+		font-size: 16px;
+		padding: 5px;
+		max-width: 340px;
+		display: inline-block;
+	}
+	*/	
+	@media only screen and (max-width: 1024px) {
+		.top-5-modules .secondary {
+			width: 58%;
+		}
+			.top-5-modules .secondary .image_section .content {
+				width: 70%;
+				margin: 0 15%;
+			}
+	}
+	@media only screen and (max-width: 768px) {
+			.top-5-modules .secondary .image_section .content {
+				width: 90%;
+				margin: 0 5%;
+			}
+	}
+	@media only screen and (max-width: 640px) {
+		.top-5-modules .secondary {
+			width: 96%;
+			margin-top: 20px;
+			min-height: 395px;
+		}
+			.top-5-modules .secondary .image_section {
+			padding-top: 90px;
+			height: 300px;
+		}
+				.top-5-modules .secondary .image_section .content {
+					background: none;
+	
+					background: url(/content/homepage2017/images/ui-elements/bean_white-large.png) no-repeat center center;
+					background-size: 100% 100%;
+					width: 80%;
+					margin: 0 10%;
+				}
+			 .top-5-modules .secondary .image_section .content .title {
+					color: black;
+					font-size: 25px;
+					line-height: 25px;
+				}
+	}
+	@media only screen and (max-width: 490px) {
+		.top-5-modules .secondary {
+			width: 96%;
+			margin-top: 30px;
+			min-height: 467px;
+		}
+		.top-5-modules .secondary .image_section {
+			padding-top: 70px;
+		}
+		.top-5-modules .secondary .image_section .content {
+			position: absolute;
+			bottom: -141px;
+			width: 90%;
+			margin: 0 5%;
+			background: url(/content/homepage2017/images/ui-elements/bean_white-large.png) no-repeat center center;
+			background-size: 100% 100%;
+			padding: 15px 15px 25px;
+		}
+		.top-5-modules .secondary .image_section .promo_sticker {
+			position: absolute;
+			top: -5px;
+			right: 6px;
+			height: 100px;
+			width: 80px;
+			background-size: 100% !important;
+			background-position: center center !important;
+			color: rgb(255, 255, 255);
+			font-family: ACFont;
+			letter-spacing: 1px;
+			text-align: center;
+			font-size: 17px;
+			line-height: 17px;
+			padding-top: 29px;
+			padding-left: 1px;
+			transform: rotate(8deg);
+			-ms-transform: rotate(8deg);
+			-webkit-transform: rotate(8deg);
+		}
+	}
+	@media only screen and (max-width: 375px) {
+	
+		.top-5-modules .secondary .image_section {
+			background-position: center center;
+			
+		}
+	}
+	/* end of secondary */
+	
+/* start of trending - don't touch */
+	.top-5-modules .trending {
+		position: relative;
+		width: 26%;
+		min-height: 410px;
+		background: url(/content/homepage2017/images/ui-elements/textured-box_white-100.png) no-repeat;
+		background-size: 100% 100%;
+		background-position: center center;
+		float: right;
+		padding: 15px;
+		margin: 35px 1% 0px;
+/*display: none !important;*/
+		
+	}
+	.trending .title {
+		position: absolute;
+		top: -35px;
+		height: 35px;
+		left: 0px;
+		width: 100%;
+		line-height: 35px;
+		font:ACFont;
+		letter-spacing:1px;
+		text-align: center;
+	}
+	.trending .product-list ul li {
+		width: 100%;
+	}
+	.trending .product-list .product-title {
+		text-align: left;
+		font-size: 16px;
+		line-height: 20px;
+	}
+		.trending .product-list .product-title a {
+			font-family: ACMontserratRegularFont;
+		}
+	.trending .product-list .dietary-icons img {
+		display: inline-block;
+	}
+	.trending .product-list .product-infos .cta-button {
+		padding: 7px 25px;
+	}
+	.trending .product-list .favorite-button {
+		display: none;
+	}
+	.trending .product-list {
+		text-align: left;
+	}
+		.trending .product-list .slick-slider {
+			margin-bottom: 0px;
+		}
+	.trending .product-item {
+		margin-left: 0px;
+		margin-bottom: 0px;
+	}
+		.trending .product-item .product-image img.lazy {
+			width:90%;
+		}
+	.product-image .sticker {
+		width: 60px;
+		height: 60px;
+		top: 5%;
+		left: 8%;
+	}
+	#left_arrow_mobile_sli, #right_arrow_mobile_sli {
+		position: absolute;
+		top: 22%;
+		width: 70px;
+		height: 70px;
+		background-size: 55% 55%;
+		background-repeat: no-repeat;
+		cursor: pointer;
+		display: none;
+	}
+		#left_arrow_mobile_sli.slick-disabled, #right_arrow_mobile_sli.slick-disabled {
+			opacity: 0.5;
+		}
+	#left_arrow_mobile_sli {
+		left: 10px;
+		background-image: url(/content/homepage2017/images/ui-elements/dropdown-down-grey.svg);
+		-ms-transform: rotate(90deg); /* IE 9 */
+		-webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
+		transform: rotate(90deg);
+		background-position: center 100%;
+	}
+	#right_arrow_mobile_sli {
+		right: 10px;
+		background-image: url(/content/homepage2017/images/ui-elements/dropdown-down-grey.svg);
+		-ms-transform: rotate(-90deg); /* IE 9 */
+		-webkit-transform: rotate(-90deg); /* Chrome, Safari, Opera */
+		transform: rotate(-90deg);
+		background-position: center 100%;
+	}
+	
+	@media only screen and (max-width: 1024px) {
+		.top-5-modules .trending {
+			width: 34%;
+			min-height: 380px;
+		}
+	}
+	@media only screen and (max-width: 640px) {
+		.top-5-modules .trending {
+			width: 60%;
+			margin: 35px 20% 10px;
+			min-height: 370px;
+			padding:20px 50px;
+		}
+		.banner-text {
+			line-height: 16px;
+			padding: 8px 5px;
+		}
+	}
+	@media only screen and (max-width: 490px) {
+		.trending .product-item {
+			float: left;
+		}
+		.top-5-modules .trending {
+			width: 98%;
+			margin: 35px 1% 10px;
+			min-height: 370px;
+			padding:20px 50px;
+		}
+		.product-image {
+			width: 100%;
+			float: none;
+			margin-top: 0px;
+		}
+		.product-infos {
+			width: 100%;
+			float: none;
+		}
+			.product-infos .cta-button {
+				float: right;
+			}
+		.product-item {
+			display: block;
+			width: 100%;
+			max-width: none;
+			float: none;
+			border: none;
+		}
+		.product-image .sticker {
+			width: 80px !important;
+			height: 80px !important;
+		}
+		.product-title {
+			padding-right: 25px;
+			height: auto !important;
+		}
+	}
+	/* end of trending */
+		
+/* start of identity */
+	.top-5-modules .identity {
+		padding-bottom: 70px;
+	}
+		.top-5-modules .identity .image {
+		width: 100%;
+		position: relative;
+		background-image: url(/content/homepage2017/images/ui-elements/textured-border.png), url(/content/homepage2017/images/wk26/identity.jpg);
+		background-repeat: no-repeat;
+		background-size: 100% 100%, cover;
+		background-position: center center;
+		height: 320px;
+	}
+			.top-5-modules .identity .image .promo_sticker {
+	position: absolute;
+	top: 20px;
+	right: 37px;
+	width: 90px;
+	height: 145px;
+	background-size: 100% 100%;
+	background-position: center center;
+	color: rgb(255, 255, 255);
+	text-align: center;
+	font-family: ACFont;
+	letter-spacing: 0.5px;
+	padding-top: 27px;
+	font-size: 34px;
+	line-height: 27px;
+	padding-left: 1px;
+	transform: rotate(6deg);
+	-ms-transform: rotate(6deg);
+	-webkit-transform: rotate(6deg);
+}
+					.top-5-modules .identity .image .promo_sticker span {
+						font-size:28px;
+				}
+			.top-5-modules .identity .image .content {
+		width: 78%;
+		margin: 0 11%;
+		min-height: 100px;
+		position: absolute;
+		bottom: -60px;
+		background: url(/content/homepage2017/images/ui-elements/bordered-box_blue.png) no-repeat center center;
+		background-size: 100% 100%;
+		padding: 15px 15px 18px;
+	}
+			.top-5-modules .identity .image .content .title {
+				padding-bottom: 10px;
+				font-size:22px;
+				line-height:22px;
+			}
+			.top-5-modules .identity .image .content .text {
+	margin: auto;
+	max-width: 397px;
+}
+			.top-5-modules .identity .image .content .text span {
+				font-family: ACMontserratRegularFont;
+				text-decoration: underline;
+			}
+	
+	
+	@media only screen and (max-width: 1024px) {
+		.top-5-modules .box {
+			width: 60%;
+		}
+		.top-5-modules .identity .image {
+			height: 350px;
+		}
+			.top-5-modules .identity .image .content {
+				bottom: -80px;
+				padding:15px 15px 20px;
+			}
+			.top-5-modules .identity .image .content .text {
+				font-family: ACMontserratLightFont;
+			}
+	}
+	@media only screen and (max-width: 768px) {
+		.top-5-modules .identity .image .content {
+			padding:15px 15px 20px;
+			width:80%;
+			margin:0 10%;
+		}
+	}
+	@media only screen and (max-width: 640px) {
+			.top-5-modules .identity {
+				padding-bottom: 80px;
+			}
+		.top-5-modules .box {
+			width: 96%;
+			margin:20px 2% 0;
+		}
+		.top-5-modules .identity .image {
+			height: 300px;
+		}
+			.top-5-modules .identity .image .content {
+				width: 95%;
+				margin: 0 3%;
+				min-height: 80px;
+				bottom: -80px;
+			}
+				.top-5-modules .identity .image .content .title {
+					font-size:25px;
+					line-height:25px;
+				}
+			.top-5-modules .identity .image .content .mobile_hide {
+				display:none;
+			}
+	}
+	@media only screen and (max-width: 490px) {
+		.top-5-modules .identity .image {
+			width: 98%;
+			margin:0 1%;
+		}
+		.top-5-modules .identity .image .promo_sticker {
+			top: 12px;
+			right: 16px;
+			width: 80px;
+		}
+	}
+	/* end of identity */
+		
+/* start of brand */
+.top-5-modules .brand .image {
+	width: 95%;
+	position: relative;
+	margin-left: 5%;
+	background-image: url(/content/homepage2017/images/ui-elements/textured-border.png), url(/content/homepage2017/images/wk26/brand.jpg);
+	background-repeat: no-repeat;
+	background-size: 100% 100%, cover;
+	background-position: 92% center;
+	height: 320px;
+}
+	.top-5-modules .brand {
+		padding-bottom: 40px;
+		padding-top: 30px;
+	}
+		.top-5-modules .brand .image .content {
+			font-family: ACMontserratLightFont;
+			width: 98%;
+			min-height: 76px;
+			position: absolute;
+			bottom: -30px;
+			right: -15px;
+			background: url(/content/homepage2017/images/ui-elements/bean_white-small.png) no-repeat center center;
+			background-size: 100% 100%;
+			padding:15px 50px 17px 50px;
+		}
+		.top-5-modules .brand .image .content span {
+				font-family: ACMontserratRegularFont;
+				text-decoration: underline;
+			}
+		.top-5-modules .brand .image .promo_sticker {
+			position: absolute;
+			top: 16px;
+			right: 24px;
+			width: 92px;
+			height: 120px;
+			background-size: 100%;
+
+			background-position: center center;
+			color: rgb(255, 255, 255);
+			text-align: center;
+			font-family: ACFont;
+			letter-spacing: 0.5px;
+			padding-top: 23px;
+			font-size: 38px;
+			line-height: 29px;
+			z-index: 1;
+			transform: rotate(10deg);
+			-ms-transform: rotate(10deg);
+			-webkit-transform: rotate(10deg);
+		}
+			.top-5-modules .brand .image .promo_sticker span {
+			font-size:32px;
+		}
+		.top-5-modules .brand .top_title {
+			position: absolute;
+			top:-3px;
+			left: 0px;
+			width:44%;
+		}
+			.top-5-modules .brand .top_title img {
+				height:55px;
+			}
+		
+	@media only screen and (max-width: 1024px) {
+		.top-5-modules .brand {
+			float: none;
+			clear: both;
+			margin: auto;
+			position: relative;
+			top: 35px;
+			padding-bottom: 70px;
+		}
+				.top-5-modules .brand .image {
+				min-height: 350px;
+				width:120%;
+				margin:0 -5%;
+				}
+				.top-5-modules .brand .image .promo_sticker {
+		right: 12px;
+	}
+			 .top-5-modules .brand .top_title {
+				width: 350px;
+				left: 6%;
+				margin-left: -150px;
+			}
+				.top-5-modules .brand .top_title img {
+					height:60px;
+				}
+			.top-5-modules .brand .image .content {
+				width: 550px;
+				right: -30px;
+				padding:15px 15px 25px;
+			}
+	}
+	@media only screen and (max-width: 768px) {
+		 .top-5-modules .brand .image {
+			min-height: 350px;
+		 }
+	}
+	@media only screen and (max-width: 640px) {
+		.top-5-modules .brand .image .promo_sticker {
+		top: 26px;
+		right: 8px;
+		width: 85px;
+	}
+		.top-5-modules .brand .image {
+			margin:auto;
+			width:95%;
+			
+		}
+		.top-5-modules .brand .image .content {
+			width: 80%;
+			margin: 0 10%;
+			left: inherit;
+			right:inherit;
+			min-height: 50px;
+			padding:15px;
+		}
+		.top-5-modules .brand .top_title {
+			left:50%;
+			margin-left:-185px;
+		}
+	}
+	@media only screen and (max-width: 490px) {
+		.top-5-modules .brand .image .content {
+			width: 88%;
+			margin: 0 6%;
+			left: inherit;
+			right:inherit;
+			min-height: 50px;
+			padding:15px;
+		}
+		
+		.top-5-modules .brand .top_title {
+			width:92%;
+			left:10%;
+			margin-left:-5%;
+		}
+			.top-5-modules .brand .top_title img {
+				width:100%;
+			}
+	}
+	/* end of brand */
+	
+/* start of recipes - don't touch */
+	.recipe_container {
+		width: 100%;
+		position: relative;
+		background: url(/content/homepage2017/images/ui-elements/recipe_container_background.png) no-repeat;
+		background-size: 100% 90%;
+		background-position: center center;
+		margin-top: 30px;
+		display:none;
+	}
+		.recipe_container .recipe_section {
+			width: 100%;
+			margin: auto;
+			max-width: 1200px;
+			padding-top: 10px;
+			background: url(/content/homepage2017/images/ui-elements/recipe_section_background.png) no-repeat center center;
+			background-size: 100% 100%;
+			padding-bottom: 30px;
+		}
+	.recipe_section .title {
+		color: #8072a7;
+		font-size: 32px;
+		line-height: 50px;
+		letter-spacing:1px;
+	}
+	.recipe_section .sub_title {
+		line-height: 20px;
+		font-family: ACMontserratRegularFont;
+	}
+	.recipe_section .box_section {
+		width: 100%;
+		margin: auto;
+		overflow: hidden;
+		padding-top: 30px;
+	}
+		.recipe_section .box_section .box {
+			float: left;
+			width: 30.33%;
+			margin-left: 1.5%;
+			margin-right: 1.5%;
+			min-height: 370px;
+			position: relative;
+		}
+			.recipe_section .box_section .box .image {
+				width: 100%;
+				height: 250px;
+				background-size: cover;
+				position: relative;
+			}
+			.recipe_section .box_section .box .image .triangle {
+				position: absolute;
+				bottom: -2px;
+				width: 100%;
+			}
+				.recipe_section .box_section .box .image .triangle .trg {
+					width: 0;
+					height: 0;
+					border-left: 20px solid transparent;
+					border-right: 20px solid transparent;
+					border-bottom: 20px solid #fff;
+					margin: auto;
+				}
+			.recipe_section .box_section .box .details {
+				padding: 15px;
+				background-color: #ffffff;
+				width: 100%;
+			}
+				.recipe_section .box_section .box .details .box_title {
+					font-family: ACMontserratRegularFont;
+					font-size: 20px;
+					text-align: left;
+					color: #8072a7;
+					line-height: 25px;
+					padding-bottom: 10px;
+					min-height: 60px;
+					display: -webkit-flex;
+					display: flex;
+					justify-content: center;
+					align-content: center;
+					flex-direction: column;
+				}
+					.recipe_section .box_section .box .details .box_title a {
+						font-family: inherit;
+					}
+				.recipe_section .box_section .box .details .serv_time {
+					text-align: left;
+				}
+					.recipe_section .box_section .box .details .serv_time object {
+						display: inline;
+						width: 20px;
+						height: 20px;
+						position: relative;
+						top: 5px;
+					}
+					.recipe_section .box_section .box .details .serv_time .icon {
+						display: inline;
+						height: 17px;
+						width: 20px;
+						position: relative;
+						top: 5px;
+
+					}
+					 .recipe_section .box_section .box .details .serv_time .icon2 {
+						width: 24px;
+					}
+				.recipe_section .box_section .box .details .serv_time span {
+					font-size: 13px;
+					font-family: ACMontserratBoldFont;
+				}
+	.recipe_section .box_section .box3 .recipe3_logo {
+			width: 90%;
+			max-width: 330px;
+			margin: auto;
+			margin:16px auto 4px;
+		}
+		.recipe_section .box_section .box3 .recipe3_img {
+			width: 90%;
+			margin: auto;
+			margin-bottom:15px;
+			height: 190px;
+			background: url(/content/homepage2017/images/wk26/videothumb.jpg) no-repeat center center;
+			background-size: cover;
+
+			cursor: pointer;
+		}
+		.recipe_section .box_section .box3 a .recipe3_btn {
+			width: 240px;
+			line-height: 35px;
+			margin: auto;
+			border: 1px solid #708e40;
+			color: #708e40;
+			font-family: ACMontserratRegularFont;
+		}
+	.slick-list {
+	outline: none !important;
+	}
+	#left_arrow_mobile, #right_arrow_mobile {
+	display: none;
+	}
+	.featherlight .featherlight-close-icon {
+	display: none;
+	}
+	.featherlight .featherlight-content {
+	padding:0 !important;
+	}
+	#recipe-tip-video {
+	font-size: 0px;
+	}
+	#recipe-tip-video iframe {
+		width: 960px;
+		height: 540px;
+	}
+		@media screen and (max-width: 990px) {
+			#recipe-tip-video iframe {
+				width: 708px;
+				height:398px;
+			}
+		}
+		@media screen and (max-width: 767px) {
+			#recipe-tip-video iframe {
+				width: 420px;
+				height: 236px
+			}
+		}
+		@media screen and (max-width: 490px) {
+			#recipe-tip-video iframe {
+				width: 280px;
+				height: 300px
+			}
+			.recipe_section .box_section .box {b
+				width: 97%;
+			}
+		}
+	
+	@media only screen and (max-width: 1024px) {
+		.recipe_container {
+			margin-top: 30px;
+			display:none;
+		}
+		.recipe_container .recipe_section {
+			background-image: url(/content/homepage2017/images/ui-elements/recipe_section_background_mobile.png);
+		}
+		.recipe_section .box_section .box3 .recipe3_logo {
+			width: 90%;
+		}
+		.recipe_section .box_section .box3 a .recipe3_btn {
+			margin-top: 20px;
+		}
+		.recipe_section .box_section .box .details .box_title {
+			font-size: 17px;
+		}
+		#recipe-tip-video iframe {
+			width: 600px;
+			height: 500px;
+		}
+		.featherlight .featherlight-content {
+			padding: 0px !important;
+			border: 0px !important;
+		}
+	}
+	@media only screen and (max-width: 830px) {
+	
+	.recipe_section .box_section .box .details .serv_time .icon {
+		display: none;
+	}
+	}
+	@media only screen and (max-width: 767px) {
+	.recipe_section .box_section .box3 .recipe3_logo {
+		width: 90%;
+		padding-top: 5px;
+		padding-bottom: 5px;
+	}
+	.recipe_section .box_section .box3 a .recipe3_btn {
+		margin-top: 40px;
+	}
+	.recipe_section .box_section .box3 .recipe3_img {
+		height: 170px;
+		margin-bottom: 15px;
+		margin-top: 10px;
+	}
+		
+	}
+	@media only screen and (max-width: 639px) {
+		.recipe_section .box_section .box .image {
+			height: 300px;
+		}
+	
+	
+		.recipe_section .box_section .box3 {
+			height:415px;
+		}
+		.recipe_section .sub_title {
+			width:90%;
+			margin:auto;
+		}
+		.recipe_section .box_section .box3 .recipe3_logo {
+			width: 70%;
+			padding: 15px;
+		}
+		.recipe_section .box_section .box3 .recipe3_img {
+			height: 207px;
+			margin-bottom: 15px;
+			margin-top: 10px;
+		}
+		.recipe_section .box_section .box3 a .recipe3_btn {
+			margin-top: 10px;
+			margin-bottom: 20px;
+		}
+		.recipe_section .box_section .box .details .serv_time .icon {
+			display: inline;
+		}
+		#left_arrow_mobile, #right_arrow_mobile {
+			position: absolute;
+			top: 45%;
+			width: 80px;
+			height: 80px;
+			background-size: 95% 95%;
+			background-repeat: no-repeat;
+			cursor: pointer;
+			display: none;
+		}
+		#left_arrow_mobile.slick-disabled, #right_arrow_mobile.slick-disabled {
+			opacity: 0.5;
+			cursor: initial;
+		}
+		#left_arrow_mobile {
+			left: -3px;
+			background-image: url(/content/homepage2017/images/ui-elements/dropdown-down.png);
+			-ms-transform: rotate(90deg); /* IE 9 */
+			-webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
+			transform: rotate(90deg);
+			background-position: center 100%;
+		}
+		#right_arrow_mobile {
+			right: 0;
+			background-image: url(/content/homepage2017/images/ui-elements/dropdown-down.png);
+			-ms-transform: rotate(-90deg); /* IE 9 */
+			-webkit-transform: rotate(-90deg); /* Chrome, Safari, Opera */
+			transform: rotate(-90deg);
+			background-position: center 100%;
+		}
+		#recipe-tip-video iframe {
+			width: 450px;
+			height: 380px;
+		}
+			.recipe_section .box_section .box {
+			width: 97%;
+		}
+		
+	}
+	@media only screen and (max-width: 490px) {
+		.recipe_section .box_section .box .image {
+			height: 250px;
+
+		}
+		.recipe_section .box_section .box3 .recipe3_logo {
+			width: 80%;
+			padding: 0;
+		}
+		.recipe_section .box_section .box3 a .recipe3_btn {
+			margin-top: 30px;
+		}
+		.recipe_section .box_section .box {
+			margin-left: 10px;
+			margin-right: 10px;
+		}
+		#recipe-tip-video iframe {
+			width: 300px;
+			height: 320px;
+		}
+	}
+	@media only screen and (max-width: 414px) {
+		.recipe_section .box_section .box3 {
+			height:370px;
+		}
+		.recipe_section .box_section .box3 .recipe3_img {
+			height: 175px;
+			margin-bottom: 15px;
+			margin-top: 10px;
+		}
+		.recipe_section .box_section .box {
+		width: 97%;
+		}	
+	}
+	/* end of recipes */
+	
+/* start of video */
+	.recipe_section .box_section .box3 {
+		background-size: 100% 100% !important;
+	
+		/* brown border */
+		/*background: url(/content/homepage2017/images/ui-elements/bordered-box_HPvideo-schoolofveg.png) no-repeat center center;*/
+	
+		/* purple border */
+		background: url(/content/homepage2017/images/ui-elements/bordered-box_HPvideo-purp.png) no-repeat center center;
+	
+	}
+.recipe_section .box_section .box3 .button {
+	font-family: ACMontserratRegularFont;
+	line-height: 20px;
+	text-align: center;
+	margin: 10px auto auto;
+	padding: 10px 5px;
+	max-width: 175px;
+}
+	/* if recipe CTA button too wide at 640px, force it to split on to 2/3 lines: */
+	@media only screen and (max-width: 840px) {
+		.recipe_section .box_section .box3 .button {
+			max-width:200px;
+		}
+	}
+	@media only screen and (max-width: 639px) {
+		.recipe_section .box_section .box3 .button {
+		max-width: 223px;
+	}
+			.recipe_section .box_section .box {
+			width: 97%;
+		}
+		
+		.recipe_section .box_section .box {
+		float: left;
+		width: 95%;
+		margin-left: 10px;
+		margin-right: 10px;
+		min-height: 370px;
+		position: relative;
+	}
+	/*
+		.recipe_section .box_section .box {
+		float: left;
+		width: 30.33%;
+		margin-left: 0;
+		margin-right: 0;
+		min-height: 370px;
+		position: relative;
+		}
+	*/
+	}
+	/* end of video */
+	
+	/* start of instagram - don't touch */
+	.content-wrapper .instagram_container {
+		width: 100%;
+		max-width: 1200px;
+		padding: 50px;
+		margin: auto;
+		padding-bottom: 0px;
+	}
+	.instagram_container .instagram_section {
+		position: relative;
+		background: url(/content/homepage2017/images/ui-elements/textured-box_white-100-wide.png) no-repeat center center;
+		background-size: 100% 100%;
+	}
+		.instagram_container .instagram_section .instagram_title {
+			position: absolute;
+			top: -25px;
+			width: 29%;
+			margin-left: 35.5%;
+		}
+		.instagram_container .instagram_section .content {
+			padding: 20px;
+			padding-top: 40px;
+			padding-bottom: 40px;
+			overflow: hidden;
+		}
+			.instagram_container .instagram_section .content .box {
+				width: 18%;
+				margin: 1%;
+				float: left;
+			}
+				.instagram_container .instagram_section .content .box img {
+					width: 100%;
+					display: block;
+				}
+			.instagram_container .instagram_section .content .instagram_join {
+
+				font-size: 16px;
+	
+				font-family: ACMontserratRegularFont;
+				color: #004879;
+				clear: both;
+			}
+				.instagram_container .instagram_section .content .instagram_join img {
+					position: relative;
+					top: 11px;
+				}
+	
+	@media only screen and (max-width: 1024px) {
+		.instagram_container .instagram_section .instagram_title {
+			width: 30%;
+			margin-left: 35%;
+		}
+		.instagram_container .instagram_section .content .box {
+			width: 31%;
+		}
+		.instagram_container .instagram_section .content {
+			padding-bottom: 10px;
+		}
+	}
+	@media only screen and (max-width: 768px) {
+		.instagram_container .instagram_section .instagram_title {
+			width: 40%;
+			margin-left: 30%;
+		}
+	}
+	@media only screen and (max-width: 640px) {
+		.content-wrapper .instagram_container {
+			padding-left: 0px;
+			padding-right: 0px;
+		}
+		.instagram_container .instagram_section .content .box {
+			width: 48%;
+		}
+		.instagram_container .instagram_section .content .instagram_join {
+			width: 80%;
+			margin: auto;
+		}
+		.instagram_container .instagram_section .instagram_title {
+			width: 280px;
+			left: 50%;
+			margin-left: -140px;
+		}
+	}
+	@media only screen and (max-width: 480px) {
+		.instagram_container .instagram_section .content {
+			padding-left: 10px;
+			padding-right: 10px;
+		}
+		.top_stuff .boxes_section .box {
+			height: 70px;
+		}
+	}
+	/* end of instagram */
+	
+/* start of site containers media queries - don't touch */
+	@media only screen and (max-width: 1024px) {
+		.content-wrapper .desktop_only {
+			display: none;
+		}
+		.content-wrapper .middle_content {
+			padding-right: 0px;
+			padding-left: 0px;
+		}
+	}
+	@media only screen and (max-width: 640px) {
+		.content-wrapper .desktop-and-tablet_only {
+			display: none;
+		}
+		.content-wrapper .mobile_none {
+			display: none;
+		}
+		.content-wrapper .top-5-modules {
+			overflow: initial;
+		}
+	}
+	/* end of site container media queries */
+*/
+
+	
+</style>
+
+	<!-- end of CSS -->
+
+	
+
+<!-- promoStrip code un-comment the below code to use -->
+<!--<section class="promoStrip push-banner" data-label="promostrip | prospect-hp-box19" data-action="box19"><span>save £30</span>  over your first 3 shops. Enter <span>30FREE</span> at checkout</section>-->
+
+<!--primary-->
+				<div class="content-wrapper">
+	<div class="middle_content">	
+		<!--primary-->
+    <a href="/inspiration-ideas/pittas-dips-offer" class="push-banner" data-label="Existing-HP_Main" data-action="wk26_Scoop-up-a-saving">
+     <div class="primary">
+            <div class="title_box"> 
+
+			<div class="promo_sticker" style="background: url(/content/homepage2017/images/stickers/sticker_offer-broccoli.svg) no-repeat;"> 
+            	</div>
+
+<!--
+				<div class="promo_sticker" style="background: url(/content/homepage2017/images/wk26/primary_polaroid.png) no-repeat;">
+                </div> 
+-->
+             	<div class="title">
+                    <h1 style="color:#207441;">Scoop up a saving</h1>
+                </div>
+                <div class="content content_default" style="color:#232323;">
+					<p>Perk up your picnic and save 10% on organic dips, crunchy crudités and expertly baked dunkers. </p>
+                </div>
+                 <div class="button" style="border:1px solid #207441; color:#207441;">
+            		Put on a spread for less
+                </div>
+            </div>
+        </div>
+    </a>
+																															
+			<!--/primary section-->
+		
+<!-- top stuff -->
+			<!-- **NOTE** When it comes to the data-action for top stuff links, use EXACTLY what the copy is, but with - instead of spaces.
+			e.g. "Father's Day Roast Kit"
+					data-action="wk#_Fathers-day-roast-kit"
+			-->
+
+		<div class="top_stuff">
+			<!-- PLEASE UNCOMMENT THE CODE BELOW TO PUT BACK THE TOP LINKS -->
+			
+
+				<div class="title title_default">
+						This week&#8217;s top stuff
+						<img class="desktop_only" src="/content/homepage2017/images/ui-elements/top-links_arrow.svg" alt="" />
+
+				</div>
 
 
+				<div class="boxes_section">
+						<a href="/fridge/pies-pasties-tarts" class="push-banner" data-label="Existing-HP_Nav1" data-action="wk26_Clives-tarts-offer">
+								<div class="box box1">
+									Clive’s tarts offer
+								</div>
+						</a>
+						<a href="/pantry/tins-jars-cooking-sauces" class="push-banner" data-label="Existing-HP_Nav2" data-action="wk26_Save-on-passata">
+								<div class="box box2">
+									Save on passata
+								</div>
+						</a>
+						<a href="/pantry/oils-vinegars-condiments" class="push-banner" data-label="Existing-HP_Nav3" data-action="wk26_Spanish-olive-oil-10-off">
+								<div class="box box3">
+									Spanish olive oil 10% off
+								</div>
+						</a>
+						<a href="/english-raspberries" class="push-banner" data-label="Existing-HP_Nav4" data-action="wk26_Raspberries-2-for-695">
+								<div class="box box4">
+									 Raspberries 2 for £6.95
+								</div> 
+						</a>
+				</div>
+
+		</div> 
+
+		<!--/top stuff-->
+	
+	<!-- don't touch -->
+	<div class="top-5-modules">
+	<!-- -->
+	
+		<!-- featured -->
+				<a href="/pantry/crisps-snacks" class="push-banner" data-label="Existing-HP_Featured" data-action="wk26_New-biscuits">
+					<div class="featured"> 
+							<div class="image_section">
+									<div class="featured-flag">
+							New biscuits!
+									</div>
+<!--
+				<div class="promo_flag" style="background: url(/content/homepage2017/images/stickers/sticker_fathers-day_orange_2020.svg) no-repeat; background-size: contain;"> 
+					</div>
+-->
+
+<!--
+							 <div class="promo_sticker" style="background: url(/content/homepage2017/images/stickers/sticker_new.svg) no-repeat;">
+									</div>
+-->
+
+<!--
+								<div class="title" style="color:#ffffff; text-shadow: 0px 0px 15px #b9bab6;">
+										Save £5 on our super good-for-you
+								</div>
+-->
+							</div>
+							<div class="content">
+									<div class="text">
+							  Meet the new trio from the Island Bakery. <span style="color:#708e40">Find a new <span style="white-space:nowrap;"> fave<object data="/content/homepage2017/images/ui-elements/arrow_green_wide.svg" type="image/svg+xml" height="11" width="14"></object></span></span>
+						</div>
+							</div>
+					</div>
+			</a>
+		
+		
+					
+		
+		<!--/featured-->
+
+
+	<!-- secondary -->
+			<a href="/meat-fish/beef" class="push-banner" data-label="Existing-HP_Secondary" data-action="wk26_Two-for-10-organic-beef-mince">
+			<div class="secondary">
+				<div class="image_section">
+
+			<div class="promo_sticker" style="background: url(/content/homepage2017/images/stickers/sticker_offer-broccoli.svg) no-repeat;"> 
+				</div>
+
+					<div class="content">
+						<div class="title title_default" style="color:#6998c0;">
+							Two for £10 organic beef mince
+						</div>
+						<div class="text content_default">
+							It’s organic and high welfare, it’s endlessly versatile, and it’s a steal at 2 for £10.
+						</div>
+						<div class="button default_content" style="border:1px solid #6998c0; color:#6998c0;">
+								Snap ‘em up
+						</div>
+					</div>
+				</div>
+			</div>
+			</a>
+			<!--/secondary-->
+	
+<!-- trending - don't touch -->
+	
+			<div class="trending" >
+			<div class="title title_default" style="color: #e3782f;">
+							In the spotlight
+					</div>
+					<div class="product-list" data-list-type="in-the-spotlight">
+					</div>
+					<div id="left_arrow_mobile_sli"></div>
+					<div id="right_arrow_mobile_sli"></div>
+		</div>
+		
+			<!-- /trending-->	
+
+<!-- identity -->
+		<a href="/barbecue" target="_blank" class="push-banner" data-label="Existing-HP_Identity" data-action="wk26_Suns-out-buns-out">
+					<div class="box identity">
+							<div class="image">
+					<!--<div class="promo_sticker" style="background: url(/content/homepage2017/images/stickers/sticker_offer.svg) no-repeat;"> 
+							</div> -->
+									<div class="content">
+											<div class="title title_default" style="color:#6998c0">
+										Sun’s out, buns out!
+											</div>
+											<div class="text content_default">
+												It’s set to be a scorcher. Time to fire up the grill and  <span style="color:#6998c0;">load up on organic BBQ  <span style="color:#6998c0; white-space:nowrap;">bits<object data="/content/homepage2017/images/ui-elements/arrow_blue_wide.svg" type="image/svg+xml" width="14" height="11"></object></span></span> 
+											</div>
+									</div>
+							</div>
+					</div>
+			</a>
+			<!--/identity-->
+	
+	<!-- brand -->
+			<a href="/fruit-veg/top-ups" class="push-banner" data-label="Existing-HP_Seasonal" data-action="wk26_Spud royalty">
+					<div class="box brand">
+							<div class="image">
+									<div class="content">
+										Organic Jersey Royals are the glittering jewel in the seasonal crown.  <span style="color:#708e40;">Pick your  <span style="white-space:nowrap;">own<object data="/content/homepage2017/images/ui-elements/arrow_green_wide.svg" type="image/svg+xml" height="11" width="14"></object></span></span>
+									</div>			
+<!--
+									<div class="promo_sticker" style="background: url(/content/homepage2017/images/stickers/sticker_new.svg) no-repeat;">
+									</div>
+-->
+	
+<!--					sticker end -->
+							</div>
+							<div class="top_title">
+									<img src="/content/homepage2017/images/wk26/brand-title.svg" alt="Spud royalty" />
+							</div>
+					</div>
+			</a>
+			<!--/brand-->
+	
+<!-- don't touch -->
+	</div></div>
+	<!-- -->
+	
+		 
+	<!--
+	 recipe patch - don't touch 
+			<div class="recipe_container">
+					<div class="recipe_section">
+							<a href="/recipe-boxes/meal-kits" class="push-banner" data-label="Existing-HP_Recipe-title" data-action="wk26_Recipe-patch" title="Recipe Patch">
+							<div class="title title_default">
+									Meal Kits
+							</div>
+							<div class="content_default sub_title">
+									Weekly recipes with step-by-step instructions and our best seasonal ingredients. <span style="color:#8072a7; text-decoration:underline;">more recipes this <span style="white-space:nowrap;">way <object data="/content/homepage2017/images/ui-elements/arrow_recipe-patch.svg" type="image/svg+xml" height="11" width="8"></object></span></span>
+							</div>
+							</a>
+							<div class="box_section">
+								 <div id="recipe-patch"></div>
+	-->
+	
+		 
+	<!-- recipe patch - don't touch -->
+			<div class="recipe_container">
+					<div class="recipe_section">
+							<a href="/recipe-boxes/meal-kits" class="push-banner" data-label="Existing-HP_Recipe-title" data-action="wk26_Recipe-patch" title="Recipe Patch">
+							<div class="title title_default">
+									Meal Kits
+							</div>
+							<div class="content_default sub_title">
+									Weekly recipes with step-by-step instructions and our best seasonal ingredients. <span style="color:#8072a7; text-decoration:underline;">more recipes this <span style="white-space:nowrap;">way <object data="/content/homepage2017/images/ui-elements/arrow_recipe-patch.svg" type="image/svg+xml" height="11" width="8"></object></span></span>
+							</div>
+							</a>
+							<div class="box_section">
+	                <div id="recipe-patch"></div> 
+											
+	 <!-- video -->
+			<div class="box box3">
+					<div class="recipe3_logo">
+							<img src="/content/homepage2017/images/wk26/school-of-veg-name.png" width="100%" alt="Pea & Mint Pesto" />
+					</div>
+	
+					<!-- ATTENTION: Do not touch data-label 'Existing-HP_Recipe-tip'. Update data-action only! -->
+					<a href="#" data-featherlight="#recipe-tip-video" class="push-banner" data-label="Existing-HP_Recipe-tip" data-action="wk26_Pea-Mint-Pesto">
+							<div class="recipe3_img"></div>
+					</a>
+	
+					<!-- ATTENTION: Do not touch data-label 'Existing-HP_Recipe-tip'. Update data-action only! -->
+					<a href="/recipes/pea--mint-pesto" class="push-banner" data-label="Existing-HP_Recipe-tip" data-action="wk26_Pea-Mint-Pesto">
+					<div class="button" style="border:solid 1px #708e40; color:#708e40;">
+						Whizz up in a flash!
+					</div>
+				</a>
+			</div>
+			<!-- /video -->
+	
+						</div>
+							<div id="left_arrow_mobile"></div>
+							<div id="right_arrow_mobile"></div>
+					</div>
+			</div>
+			<!-- /recipe patch -->
+	
+		<!-- instagram -->
+			<div class="instagram_container">
+					<div class="instagram_section">
+							<a target="_blank" class="push-banner" data-action="wk26_Instagram" data-label="Existing-HP_Instagram" href="https://www.instagram.com/abelandcole/">
+							<div class="instagram_title">
+									<img src="/content/homepage2017/images/ui-elements/banner_instagram.svg" alt="Move over spuds…" width="100%" />
+							</div>
+							</a>
+						 <div class="content">
+									<div class="box box1">
+											<a href="https://www.instagram.com/abelandcole/" target="_blank" class="push-banner" data-label="Existing-HP_Instagram" data-action="wk26_Instagram">
+													<img src="/content/homepage2017/images/instagram_1.jpg" alt="@abelandcole on Instagram" />
+											</a>
+									</div>
+									<div class="box box2">
+											<a href="https://www.instagram.com/abelandcole/" target="_blank" class="push-banner" data-label="Existing-HP_Instagram" data-action="wk26_Instagram">
+													<img src="/content/homepage2017/images/instagram_2.jpg" alt="@abelandcole on Instagram" />
+											</a>
+									</div>
+									<div class="box box3 desktop-and-tablet_only">
+											<a href="https://www.instagram.com/abelandcole/" target="_blank" class="push-banner" data-label="Existing-HP_Instagram" data-action="wk26_Instagram">
+													<img src="/content/homepage2017/images/instagram_3.jpg" alt="@abelandcole on Instagram" />
+											</a>
+									</div>
+									<div class="box box4 desktop_only">
+											<a href="https://www.instagram.com/abelandcole/" target="_blank" class="push-banner" data-label="Existing-HP_Instagram" data-action="wk26_Instagram">
+													<img src="/content/homepage2017/images/instagram_4.jpg" alt="@abelandcole on Instagram" />
+											</a>
+									</div>
+									<div class="box box5 desktop_only">
+											<a href="https://www.instagram.com/abelandcole/" target="_blank" class="push-banner" data-label="Existing-HP_Instagram" data-action="wk26_Instagram">
+													<img src="/content/homepage2017/images/instagram_5.jpg" alt="@abelandcole on Instagram" />
+											</a>
+									</div>
+								 <a target="_blank" class="push-banner" data-label="Existing-HP_Instagram" data-action="wk26_Instagram" href="https://www.instagram.com/abelandcole/">
+										 <div class="instagram_join">
+												 Join us on
+												 <img src="/content/homepage2017/images/ui-elements/instagram.png" alt="@abelandcole on Instagram" />
+												 with #myabelandcole
+										 </div>
+								 </a>
+							</div>
+					</div>
+			</div>
+			<!-- /instagram -->
+		
+			<!-- youtube video link -->
+			<div style="display:none">
+					<div id="recipe-tip-video">
+							<!-- remember to TAKE OUT the youtube iframe width and height -->
+							<iframe src="https://www.youtube.com/embed/U25fT8m6Uio" frameborder="0" allowfullscreen></iframe>
+					</div>
+			</div>
+			<!-- /youtube video link -->
+	
+	<script src="/content/shop/categoryheaders/scripts/meatfish.js"></script>
