@@ -31,6 +31,31 @@ type marketing struct {
 	Links     []linkStruct
 }
 
+// SplitAt returns a bufio.SplitFunc closure, splitting at a substring
+// scanner.Split(SplitAt("\n# "))
+func SplitAt(substring string) func(data []byte, atEOF bool) (advance int, token []byte, err error) {
+
+	return func(data []byte, atEOF bool) (advance int, token []byte, err error) {
+
+		// Return nothing if at end of file and no data passed
+		if atEOF && len(data) == 0 {
+			return 0, nil, nil
+		}
+
+		// Find the index of the input of the separator substring
+		if i := strings.Index(string(data), substring); i >= 0 {
+			return i + len(substring), data[0:i], nil
+		}
+
+		// If at end of file with data return the data
+		if atEOF {
+			return len(data), data, nil
+		}
+
+		return
+	}
+}
+
 //AddDash to be exported
 func AddDash(s string) (sss string) {
 	scanner := bufio.NewScanner(strings.NewReader(strings.Trim(s, " ")))
@@ -86,16 +111,29 @@ func XplodeLast(s string) (sss []string) {
 	return s3
 }
 
+//XplodeCta to be exported
+func XplodeCta(s string) (sss []string) {
+	scanner := bufio.NewScanner(strings.NewReader(strings.Trim(s, " ")))
+	scanner.Split(SplitAt(","))
+	var ss []string
+
+	for scanner.Scan() {
+		ss = append(ss, scanner.Text())
+	}
+	return ss
+}
+
 var fn = template.FuncMap{
 	"AddDash":       AddDash,
 	"Xplode":        Xplode,
 	"XplodeLast":    XplodeLast,
+	"XplodeCta":     XplodeCta,
 	"RemoveSpecial": RemoveSpecial,
 }
 
 func main() {
 
-	r, err := docx.ReadDocxFile(filepath.Join("./docx", "hp2.docx"))
+	r, err := docx.ReadDocxFile(filepath.Join("./docx", "Week_28.docx"))
 	defer r.Close()
 
 	if err != nil {
