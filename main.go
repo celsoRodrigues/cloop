@@ -2,22 +2,26 @@ package main
 
 import (
 	"bufio"
+	"encoding/xml"
 	"fmt"
 	"html/template"
 	"log"
 	"os"
 	"path/filepath"
-	"regexp"
 	"strings"
 
+	"github.com/celsoRodrigues/cloop/model"
 	"github.com/nguyenthenguyen/docx"
 )
 
 //Campaign to be exported
 type campaign struct {
-	Title string
-	Body  string
-	Cta   string
+	Sticker string
+	image   string
+	link    string
+	Title   string
+	Body    string
+	Cta     string
 }
 
 type linkStruct struct {
@@ -133,109 +137,38 @@ var fn = template.FuncMap{
 
 func main() {
 
-	r, err := docx.ReadDocxFile(filepath.Join("./docx", "Week_28.docx"))
+	mainSec := campaign{}
+	secSec := campaign{}
+	featSec := campaign{}
+	prodCatSec := campaign{}
+	brandSec := campaign{}
+
+	var mkt marketing
+
+	r, err := docx.ReadDocxFile(filepath.Join("./docx", "hp2.docx"))
 	defer r.Close()
 
 	if err != nil {
 		panic(err)
 	}
+	myDoc := model.Document{}
 
-	mycapaign := campaign{}
-	link := linkStruct{}
-
-	var cr = regexp.MustCompile(`</w:p>`)
-	var re = regexp.MustCompile(`[<][^>]*[>]`)
-
-	str := cr.ReplaceAll([]byte(r.Content), []byte("\n"))
-	str = re.ReplaceAll([]byte(str), []byte(""))
-	fmt.Print(string(str))
-	scanner := bufio.NewScanner(strings.NewReader(string(str)))
-
-	var week string
-	var links []string
-	var linksCopyLines []string
-	var titleLines []string
-	var bodyLines []string
-	var ctaLines []string
-
-	for scanner.Scan() {
-
-		if strings.Contains(scanner.Text(), "Week:") {
-			index := strings.Index(scanner.Text(), ":")
-			week = strings.Trim(scanner.Text()[index+1:], " ")
-		}
-
-		if strings.Contains(scanner.Text(), "Top Link:") {
-			index := strings.Index(scanner.Text(), ":")
-			link := strings.Trim(scanner.Text()[index+31:], " ")
-			links = append(links, link)
-		}
-
-		if strings.Contains(scanner.Text(), "Top Copy") {
-			scanner.Scan()
-			linksCopyLines = append(linksCopyLines, scanner.Text())
-		}
-
-		if strings.Contains(scanner.Text(), "Title copy") {
-			scanner.Scan()
-			titleLines = append(titleLines, scanner.Text())
-		}
-
-		if strings.Contains(scanner.Text(), "Body copy") {
-			scanner.Scan()
-			bodyLines = append(bodyLines, scanner.Text())
-		}
-
-		if strings.Contains(scanner.Text(), "CTA copy") {
-			var s string
-			for {
-				scanner.Scan()
-				if len(scanner.Text()) == 0 {
-					break
-				}
-				s += scanner.Text() + ", "
-			}
-			ctaLines = append(ctaLines, strings.Trim(s, ", "))
-		}
-	}
-
-	if len(titleLines) != len(bodyLines) || len(ctaLines) != len(titleLines) || len(bodyLines) != len(ctaLines) {
-		fmt.Println("There is a field(s) missing in the page\n You have:\n titles:", len(titleLines), "Bodies:", len(bodyLines), "Cta's:", len(ctaLines))
+	err = xml.Unmarshal([]byte(r.Content), &myDoc)
+	if err != nil {
+		fmt.Print(err)
 		os.Exit(1)
 	}
 
-	if len(links) != len(linksCopyLines) {
-		fmt.Println("There is a field(s) missing in the page\n You have:\n links:", len(links), "\n linkCopy:", len(linksCopyLines))
-		os.Exit(1)
-	}
+	getSections(myDoc, "main", &mainSec)
+	getSections(myDoc, "sec", &secSec)
+	getSections(myDoc, "feat", &featSec)
+	getSections(myDoc, "prodcat", &prodCatSec)
+	getSections(myDoc, "brand", &brandSec)
+	getWeek(myDoc, &mkt)
 
-	var mycampaigns []campaign
-	var myLinks []linkStruct
-	for i := 0; i < len(titleLines); i++ {
+	getTopLinks(myDoc)
 
-		mycapaign.Title = titleLines[i]
-		mycapaign.Body = bodyLines[i]
-		mycapaign.Cta = ctaLines[i]
-
-		mycampaigns = append(mycampaigns, mycapaign)
-
-	}
-
-	for i := 0; i < len(links); i++ {
-
-		link.URL = links[i]
-		link.Copy = linksCopyLines[i]
-
-		myLinks = append(myLinks, link)
-
-	}
-
-	mkt := marketing{
-		Week:      week,
-		Campaigns: mycampaigns,
-		Links:     myLinks,
-	}
-
+	mkt.Campaigns = []campaign{mainSec, secSec, featSec, prodCatSec, brandSec}
 	fd, err := os.OpenFile(filepath.Join("./bin", "page.html"), os.O_CREATE|os.O_TRUNC|os.O_WRONLY, 0755)
 	defer fd.Close()
 
@@ -243,6 +176,61 @@ func main() {
 	err = tmpl.Execute(fd, mkt)
 	if err != nil {
 		log.Fatal(err)
+	}
+
+}
+
+func getSections(myDoc model.Document, s string, sec *campaign) {
+
+	for i := 0; i <= len(myDoc.Body.P)-1; i++ {
+
+		if myDoc.Body.P[i].Sdt.SdtPr.Tag.Val == "image_"+s {
+			sec.image = myDoc.Body.P[i].Sdt.SdtContent.R[0].T.Text
+		}
+
+		if myDoc.Body.P[i].Sdt.SdtPr.Tag.Val == "link_"+s {
+			sec.link = myDoc.Body.P[i].Sdt.SdtContent.Hyperlink.R.T
+		}
+
+		if myDoc.Body.P[i].Sdt.SdtPr.Tag.Val == "sticker_"+s {
+			sec.Sticker = myDoc.Body.P[i].Sdt.SdtContent.R[0].T.Text
+		}
+
+		if myDoc.Body.P[i].Sdt.SdtPr.Tag.Val == "title_"+s {
+			sec.Title = myDoc.Body.P[i].Sdt.SdtContent.R[0].T.Text
+		}
+
+		if myDoc.Body.P[i].Sdt.SdtPr.Tag.Val == "body_"+s {
+			sec.Body = myDoc.Body.P[i].Sdt.SdtContent.R[0].T.Text
+		}
+
+		if myDoc.Body.P[i].Sdt.SdtPr.Tag.Val == "cta_"+s {
+			sec.Cta = myDoc.Body.P[i].Sdt.SdtContent.R[0].T.Text
+		}
+	}
+}
+
+func getTopLinks(myDoc model.Document) {
+
+	for i := 0; i <= len(myDoc.Body.P)-1; i++ {
+
+		if myDoc.Body.P[i].Sdt.SdtPr.Tag.Val == "top_link" {
+			fmt.Printf("%s: ", myDoc.Body.P[i].Sdt.SdtPr.Tag.Val)
+			fmt.Printf("%v\n", myDoc.Body.P[i].Sdt.SdtContent.Hyperlink.R.T)
+		}
+
+	}
+
+}
+
+func getWeek(myDoc model.Document, mkt *marketing) {
+
+	for i := 0; i <= len(myDoc.Body.P)-1; i++ {
+
+		if myDoc.Body.P[i].Sdt.SdtPr.Tag.Val == "week" {
+			mkt.Week = myDoc.Body.P[i].Sdt.SdtContent.R[0].T.Text
+		}
+
 	}
 
 }
