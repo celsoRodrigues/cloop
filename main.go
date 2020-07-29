@@ -5,6 +5,7 @@ import (
 	"encoding/xml"
 	"fmt"
 	"html/template"
+	"log"
 	"os"
 	"path/filepath"
 	"strings"
@@ -15,9 +16,12 @@ import (
 
 //Campaign to be exported
 type campaign struct {
-	Title string
-	Body  string
-	Cta   string
+	Sticker string
+	image   string
+	link    string
+	Title   string
+	Body    string
+	Cta     string
 }
 
 type linkStruct struct {
@@ -133,14 +137,20 @@ var fn = template.FuncMap{
 
 func main() {
 
+	mainSec := campaign{}
+	secSec := campaign{}
+	featSec := campaign{}
+	prodCatSec := campaign{}
+	brandSec := campaign{}
+
+	var mkt marketing
+
 	r, err := docx.ReadDocxFile(filepath.Join("./docx", "hp2.docx"))
 	defer r.Close()
 
 	if err != nil {
 		panic(err)
 	}
-
-	//fmt.Print(r.Content)
 	myDoc := model.Document{}
 
 	err = xml.Unmarshal([]byte(r.Content), &myDoc)
@@ -149,12 +159,78 @@ func main() {
 		os.Exit(1)
 	}
 
+	getSections(myDoc, "main", &mainSec)
+	getSections(myDoc, "sec", &secSec)
+	getSections(myDoc, "feat", &featSec)
+	getSections(myDoc, "prodcat", &prodCatSec)
+	getSections(myDoc, "brand", &brandSec)
+	getWeek(myDoc, &mkt)
+
+	getTopLinks(myDoc)
+
+	mkt.Campaigns = []campaign{mainSec, secSec, featSec, prodCatSec, brandSec}
+	fd, err := os.OpenFile(filepath.Join("./bin", "page.html"), os.O_CREATE|os.O_TRUNC|os.O_WRONLY, 0755)
+	defer fd.Close()
+
+	tmpl := template.Must(template.New("layout.html").Funcs(fn).ParseFiles(filepath.Join("./layout", "layout.html")))
+	err = tmpl.Execute(fd, mkt)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+}
+
+func getSections(myDoc model.Document, s string, sec *campaign) {
+
+	for i := 0; i <= len(myDoc.Body.P)-1; i++ {
+
+		if myDoc.Body.P[i].Sdt.SdtPr.Tag.Val == "image_"+s {
+			sec.image = myDoc.Body.P[i].Sdt.SdtContent.R[0].T.Text
+		}
+
+		if myDoc.Body.P[i].Sdt.SdtPr.Tag.Val == "link_"+s {
+			sec.link = myDoc.Body.P[i].Sdt.SdtContent.Hyperlink.R.T
+		}
+
+		if myDoc.Body.P[i].Sdt.SdtPr.Tag.Val == "sticker_"+s {
+			sec.Sticker = myDoc.Body.P[i].Sdt.SdtContent.R[0].T.Text
+		}
+
+		if myDoc.Body.P[i].Sdt.SdtPr.Tag.Val == "title_"+s {
+			sec.Title = myDoc.Body.P[i].Sdt.SdtContent.R[0].T.Text
+		}
+
+		if myDoc.Body.P[i].Sdt.SdtPr.Tag.Val == "body_"+s {
+			sec.Body = myDoc.Body.P[i].Sdt.SdtContent.R[0].T.Text
+		}
+
+		if myDoc.Body.P[i].Sdt.SdtPr.Tag.Val == "cta_"+s {
+			sec.Cta = myDoc.Body.P[i].Sdt.SdtContent.R[0].T.Text
+		}
+	}
+}
+
+func getTopLinks(myDoc model.Document) {
+
+	for i := 0; i <= len(myDoc.Body.P)-1; i++ {
+
+		if myDoc.Body.P[i].Sdt.SdtPr.Tag.Val == "top_link" {
+			fmt.Printf("%s: ", myDoc.Body.P[i].Sdt.SdtPr.Tag.Val)
+			fmt.Printf("%v\n", myDoc.Body.P[i].Sdt.SdtContent.Hyperlink.R.T)
+		}
+
+	}
+
+}
+
+func getWeek(myDoc model.Document, mkt *marketing) {
+
 	for i := 0; i <= len(myDoc.Body.P)-1; i++ {
 
 		if myDoc.Body.P[i].Sdt.SdtPr.Tag.Val == "week" {
-			fmt.Printf("%s: ", myDoc.Body.P[i].Sdt.SdtPr.Tag.Val)
-			fmt.Printf("%v\n", myDoc.Body.P[i].Sdt.SdtContent.R[0].T.Text)
+			mkt.Week = myDoc.Body.P[i].Sdt.SdtContent.R[0].T.Text
 		}
+
 	}
 
 }
