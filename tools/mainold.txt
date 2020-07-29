@@ -149,7 +149,7 @@ func init() {
 
 }
 
-func main() {
+func main1() {
 
 	r, err := docx.ReadDocxFile(filepath.Join("./docx", "hp2.docx"))
 	defer r.Close()
