@@ -56,6 +56,10 @@ func main() {
 
 	mkt.Campaigns = []model.Campaign{mainSec, secSec, featSec, prodCatSec, brandSec}
 	fd, err := os.OpenFile(filepath.Join("./bin", "page.html"), os.O_CREATE|os.O_TRUNC|os.O_WRONLY, 0755)
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
 	defer fd.Close()
 
 	tmpl := template.Must(template.New("layout.html").Funcs(fn).ParseFiles(filepath.Join("./layout", "layout.html")))
