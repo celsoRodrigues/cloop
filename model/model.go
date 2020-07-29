@@ -2,6 +2,29 @@ package model
 
 import "encoding/xml"
 
+//Campaign to be exported
+type Campaign struct {
+	Sticker string
+	Image   string
+	Link    string
+	Title   string
+	Body    string
+	Cta     string
+}
+
+//LinkStruct to be exported
+type LinkStruct struct {
+	URL  string
+	Copy string
+}
+
+//Marketing to be exported
+type Marketing struct {
+	Week      string
+	Campaigns []Campaign
+	Links     []LinkStruct
+}
+
 //Document to be exported
 type Document struct {
 	XMLName   xml.Name `xml:"document"`
