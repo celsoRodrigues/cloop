@@ -91,7 +91,5 @@ func getWeek(myDoc model.Document, mkt *model.Marketing) {
 		if myDoc.Body.P[i].Sdt.SdtPr.Tag.Val == "week" {
 			mkt.Week = myDoc.Body.P[i].Sdt.SdtContent.R[0].T.Text
 		}
-
 	}
-
 }
