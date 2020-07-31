@@ -23,6 +23,8 @@ var fn = template.FuncMap{
 
 func main() {
 
+	promoNurserySec := model.PromoStruct{}
+	promoExistingSec := model.PromoStruct{}
 	mainSec := model.Campaign{}
 	secSec := model.Campaign{}
 	featSec := model.Campaign{}
@@ -31,19 +33,28 @@ func main() {
 	myDoc := model.Document{}
 
 	var mkt model.Marketing
+	docxFileName := "hp.docx"
 
-	r, err := docx.ReadDocxFile(filepath.Join("./docx", "hp2.docx"))
-	defer r.Close()
-
+	fd, err := os.OpenFile(filepath.Join("./docx", docxFileName), os.O_EXCL|os.O_RDWR, 0755)
 	if err != nil {
-		panic(err)
-	}
-
-	err = xml.Unmarshal([]byte(r.Content), &myDoc)
-	if err != nil {
-		fmt.Print(err)
+		fmt.Println(err)
 		os.Exit(1)
+	} else {
+		fd.Close()
+		r, err := docx.ReadDocxFile(filepath.Join("./docx", docxFileName))
+		if err != nil {
+			panic(err)
+		}
+		defer r.Close()
+		err = xml.Unmarshal([]byte(r.Content), &myDoc)
+		if err != nil {
+			fmt.Print(err)
+			os.Exit(1)
+		}
 	}
+
+	section.GetPromo(myDoc, "nursery", &promoNurserySec)
+	section.GetPromo(myDoc, "existing", &promoExistingSec)
 
 	section.GetSection(myDoc, "main", &mainSec)
 	section.GetSection(myDoc, "sec", &secSec)
@@ -55,7 +66,8 @@ func main() {
 	getTopLinks(myDoc)
 
 	mkt.Campaigns = []model.Campaign{mainSec, secSec, featSec, prodCatSec, brandSec}
-	fd, err := os.OpenFile(filepath.Join("./bin", "page.html"), os.O_CREATE|os.O_TRUNC|os.O_WRONLY, 0755)
+	mkt.Promos = []model.PromoStruct{promoNurserySec, promoExistingSec}
+	fd, err = os.OpenFile(filepath.Join("./bin", "page.html"), os.O_CREATE|os.O_TRUNC|os.O_WRONLY, 0755)
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)
@@ -75,11 +87,10 @@ func getTopLinks(myDoc model.Document) {
 
 	for i := 0; i <= len(myDoc.Body.P)-1; i++ {
 
-		if myDoc.Body.P[i].Sdt.SdtPr.Tag.Val == "top_link" {
-			fmt.Printf("%s: ", myDoc.Body.P[i].Sdt.SdtPr.Tag.Val)
-			fmt.Printf("%v\n", myDoc.Body.P[i].Sdt.SdtContent.Hyperlink.R.T)
-		}
-
+		//if myDoc.Body.P[i].Sdt.SdtPr.Tag.Val == "top_link" {
+		//	fmt.Printf("%s: ", myDoc.Body.P[i].Sdt.SdtPr.Tag.Val)
+		//	fmt.Printf("%v\n", myDoc.Body.P[i].Sdt.SdtContent.Hyperlink.R.T)
+		//}
 	}
 
 }

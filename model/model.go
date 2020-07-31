@@ -18,11 +18,18 @@ type LinkStruct struct {
 	Copy string
 }
 
+//PromoStruct to be exported
+type PromoStruct struct {
+	Link string
+	Copy string
+}
+
 //Marketing to be exported
 type Marketing struct {
 	Week      string
 	Campaigns []Campaign
 	Links     []LinkStruct
+	Promos    []PromoStruct
 }
 
 //Document to be exported

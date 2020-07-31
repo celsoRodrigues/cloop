@@ -1,6 +1,8 @@
 package section
 
-import "github.com/celsoRodrigues/cloop/model"
+import (
+	"github.com/celsoRodrigues/cloop/model"
+)
 
 //GetSection to be exported
 func GetSection(myDoc model.Document, s string, sec *model.Campaign) {
@@ -31,4 +33,19 @@ func GetSection(myDoc model.Document, s string, sec *model.Campaign) {
 			sec.Cta = myDoc.Body.P[i].Sdt.SdtContent.R[0].T.Text
 		}
 	}
+}
+
+func GetPromo(myDoc model.Document, s string, sec *model.PromoStruct) {
+
+	for i := 0; i <= len(myDoc.Body.P)-1; i++ {
+
+		if myDoc.Body.P[i].Sdt.SdtPr.Tag.Val == "copy_promo_"+s {
+			sec.Copy = myDoc.Body.P[i].Sdt.SdtContent.R[0].T.Text
+		}
+
+		if myDoc.Body.P[i].Sdt.SdtPr.Tag.Val == "link_promo_"+s {
+			sec.Link = myDoc.Body.P[i].Sdt.SdtContent.Hyperlink.R.T
+		}
+	}
+
 }

@@ -1,57 +1,11 @@
-{{$maincamp :=index .Campaigns 0 }}
-{{$secondcamp :=index .Campaigns 1 }}
-{{$week :=.Week }}
+{{range .Promos}}
 
-
-
-
-
-
-<title>Individual</title>
-{{$week}}
-Week{{$week}}_
-{{$maincamp.Title|AddDash|RemoveSpecial}}
-
-
-
-
-
-
-{{$ctaWords:=$maincamp.Cta|XplodeLast}}
-{{index $ctaWords 0}}
-{{index $ctaWords 1}}
-
-{{$ctaWords:=$maincamp.Cta|XplodeCta}}
-{{index $ctaWords 0}}
-
-
-
+<title>Promos</title>
 <ul>
      
-       <li class="done">{{$maincamp.Title }}</li>
-       <li class="done">{{$maincamp.Body }}</li>
-       <li class="done">{{$maincamp.Cta }}</li>
-
-    
-</ul>
-
-{{range .Campaigns}}
-<title>Loop</title>
-<ul>
-     
-    <li class="done">{{.Title }}</li>
-    <li class="done">{{.Body }}</li>
-    <li class="done">{{.Cta }}</li>
-
+    <li class="done">{{.Link }}</li>
+    <li class="done">{{.Copy }}</li>
  
 </ul>
+
 {{end}}
-
-{{range .Links}}
-<li class="done">{{.URL}}</li>
-<li class="done">{{.Copy}}</li>
-{{end}}
-
-
-
-
